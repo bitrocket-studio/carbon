@@ -7,13 +7,16 @@ const Header = ({ enableHeroText }) => (
   <header role="banner" className="mb4">
     <div className="header-content">
       <a id="link-home" href="/" aria-label="Home">
-        <Logo />
+        <div>
+          <Logo />
+          <div style={{ textAlign: 'right', fontSize: 12 }}>Modded by bitRocket</div>
+        </div>
       </a>
       {enableHeroText ? (
-        <h2 className="mt3">
-          Create and share beautiful images of your source code.
+        <h2 className="mt3" style={{ marginTop: 50 }}>
+          Crea e condividi splendide immagini del tuo codice.
           <br />
-          Start typing or drop a file into the text area to get started.
+          Inizia a scrivere o trascina un file nell'area di testo.
         </h2>
       ) : null}
     </div>
