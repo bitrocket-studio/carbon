@@ -16,7 +16,7 @@ const Header = ({ enableHeroText }) => (
         <h2 className="mt3" style={{ marginTop: 50 }}>
           Crea e condividi splendide immagini del tuo codice.
           <br />
-          Inizia a scrivere o trascina un file nell'area di testo.
+          Inizia a scrivere o trascina un file nell&apos;area di testo.
         </h2>
       ) : null}
     </div>
