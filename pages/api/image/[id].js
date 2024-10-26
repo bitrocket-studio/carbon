@@ -105,7 +105,7 @@ export default async function id(req, res) {
         width,
         height,
       };
-
+      // eslint-disable-next-line
       return domtoimage.toPng(target, config);
     }, targetElement);
 
