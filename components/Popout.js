@@ -1,59 +1,55 @@
-import React from 'react'
-import enhanceWithClickOutside from 'react-click-outside'
+/** @format */
 
-import WindowPointer from './WindowPointer'
-import { COLORS } from '../lib/constants'
-import { toggle } from '../lib/util'
+import React from 'react';
+import enhanceWithClickOutside from 'react-click-outside';
+
+import WindowPointer from './WindowPointer';
+import { COLORS } from '../lib/constants';
+import { toggle } from '../lib/util';
 
 export const managePopout = WrappedComponent => {
   class PopoutManager extends React.Component {
     state = {
       isVisible: false,
-    }
+    };
 
-    toggleVisibility = () => this.setState(toggle('isVisible'))
+    toggleVisibility = () => this.setState(toggle('isVisible'));
 
-    handleClickOutside = () => this.setState({ isVisible: false })
+    handleClickOutside = () => this.setState({ isVisible: false });
 
     handleKeyDown = e => {
       if (e.key === 'Escape') {
-        this.handleClickOutside()
+        this.handleClickOutside();
       }
-    }
+    };
 
     componentDidMount() {
-      document.addEventListener('keydown', this.handleKeyDown)
+      document.addEventListener('keydown', this.handleKeyDown);
     }
 
     componentWillUnmount() {
-      document.removeEventListener('keydown', this.handleKeyDown)
+      document.removeEventListener('keydown', this.handleKeyDown);
     }
 
     render() {
-      return (
-        <WrappedComponent
-          {...this.props}
-          isVisible={this.state.isVisible}
-          toggleVisibility={this.toggleVisibility}
-        />
-      )
+      return <WrappedComponent {...this.props} isVisible={this.state.isVisible} toggleVisibility={this.toggleVisibility} />;
     }
   }
 
-  return enhanceWithClickOutside(PopoutManager)
-}
+  return enhanceWithClickOutside(PopoutManager);
+};
 
 class Popout extends React.PureComponent {
   static defaultProps = {
     borderColor: COLORS.SECONDARY,
     style: {},
-  }
+  };
 
   render() {
-    const { id, children, borderColor, style, hidden, pointerLeft, pointerRight } = this.props
+    const { id, children, borderColor, style, hidden, pointerLeft, pointerRight } = this.props;
 
     if (hidden) {
-      return null
+      return null;
     }
 
     return (
@@ -74,8 +70,8 @@ class Popout extends React.PureComponent {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-export default Popout
+export default Popout;

@@ -1,27 +1,29 @@
-import React from 'react'
-import { useAsyncCallback, useOnline as useOnlineListener } from 'actionsack'
+/** @format */
 
-import { useAPI } from './ApiContext'
-import { COLORS } from '../lib/constants'
-import Button from './Button'
-import Popout, { managePopout } from './Popout'
-import { Down as ArrowDown } from './svg/Arrows'
+import React from 'react';
+import { useAsyncCallback, useOnline as useOnlineListener } from 'actionsack';
 
-const popoutStyle = { width: '144px', right: 8 }
+import { useAPI } from './ApiContext';
+import { COLORS } from '../lib/constants';
+import Button from './Button';
+import Popout, { managePopout } from './Popout';
+import { Down as ArrowDown } from './svg/Arrows';
+
+const popoutStyle = { width: '144px', right: 8 };
 
 function ShareMenu({ isVisible, toggleVisibility, tweet, imgur }) {
-  const api = useAPI()
-  const online = useOnlineListener()
+  const api = useAPI();
+  const online = useOnlineListener();
 
-  const [onClickTweet, { loading: tweeting }] = useAsyncCallback(tweet)
-  const [onClickImgur, { loading: imguring }] = useAsyncCallback(imgur)
+  const [onClickTweet, { loading: tweeting }] = useAsyncCallback(tweet);
+  const [onClickImgur, { loading: imguring }] = useAsyncCallback(imgur);
 
   if (!api || !api.tweet) {
-    return null
+    return null;
   }
 
   if (!online) {
-    return null
+    return null;
   }
 
   return (
@@ -81,7 +83,7 @@ function ShareMenu({ isVisible, toggleVisibility, tweet, imgur }) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
-export default managePopout(React.memo(ShareMenu))
+export default managePopout(React.memo(ShareMenu));

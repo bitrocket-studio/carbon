@@ -1,18 +1,20 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 function Toast(props) {
-  const [display, on] = React.useState(true)
+  const [display, on] = React.useState(true);
 
   function off() {
-    return on(false)
+    return on(false);
   }
 
   React.useEffect(() => {
     if (props.timeout) {
-      const to = setTimeout(off, props.timeout)
-      return () => clearTimeout(to)
+      const to = setTimeout(off, props.timeout);
+      return () => clearTimeout(to);
     }
-  }, [props.timeout])
+  }, [props.timeout]);
 
   return (
     <div className={`toast mb2 ${display ? '' : 'out'}`}>
@@ -87,7 +89,7 @@ function Toast(props) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
 function ToastContainer(props) {
@@ -110,7 +112,7 @@ function ToastContainer(props) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
-export default ToastContainer
+export default ToastContainer;

@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 const Toolbar = props => (
   <div className="toolbar" style={props.style}>
@@ -33,6 +35,6 @@ const Toolbar = props => (
       `}
     </style>
   </div>
-)
+);
 
-export default Toolbar
+export default Toolbar;

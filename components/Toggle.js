@@ -1,25 +1,22 @@
-import React from 'react'
+/** @format */
 
-import Checkmark from './svg/Checkmark'
-import { COLORS } from '../lib/constants'
+import React from 'react';
+
+import Checkmark from './svg/Checkmark';
+import { COLORS } from '../lib/constants';
 
 class Toggle extends React.PureComponent {
   static defaultProps = {
     className: '',
-  }
+  };
 
-  toggle = () => this.props.onChange(!this.props.enabled)
+  toggle = () => this.props.onChange(!this.props.enabled);
 
   render() {
     return (
       <div className={`toggle ${this.props.className}`}>
         <label className="label">{this.props.label}</label>
-        <input
-          type="checkbox"
-          checked={this.props.enabled}
-          onChange={this.toggle}
-          aria-checked={this.props.enabled}
-        />
+        <input type="checkbox" checked={this.props.enabled} onChange={this.toggle} aria-checked={this.props.enabled} />
         {this.props.enabled ? <Checkmark /> : <div className="checkmark-disabled" />}
         <style jsx>
           {`
@@ -61,8 +58,8 @@ class Toggle extends React.PureComponent {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-export default Toggle
+export default Toggle;

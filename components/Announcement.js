@@ -1,36 +1,38 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 // Feature flag
-const ACTIVE = false
+const ACTIVE = false;
 
-const key = 'CARBON_CTA_4'
+const key = 'CARBON_CTA_4';
 
 function Toast() {
-  const [open, setState] = React.useState(false)
+  const [open, setState] = React.useState(false);
 
   React.useEffect(() => {
-    window.localStorage.removeItem('CARBON_CTA_2')
-    window.localStorage.removeItem('CARBON_CTA_3')
+    window.localStorage.removeItem('CARBON_CTA_2');
+    window.localStorage.removeItem('CARBON_CTA_3');
     if (!window.localStorage.getItem(key)) {
-      setState(true)
+      setState(true);
     }
-  }, [])
+  }, []);
 
   if (process.env.NODE_ENV !== 'production') {
-    return null
+    return null;
   }
 
   if (!ACTIVE) {
-    return null
+    return null;
   }
 
   if (!open) {
-    return null
+    return null;
   }
 
   function close() {
-    setState(false)
-    window.localStorage.setItem(key, true)
+    setState(false);
+    window.localStorage.setItem(key, true);
   }
 
   return (
@@ -99,7 +101,7 @@ function Toast() {
         `}
       </style>
     </div>
-  )
+  );
 }
 
-export default Toast
+export default Toast;

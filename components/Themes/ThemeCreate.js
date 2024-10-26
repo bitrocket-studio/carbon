@@ -1,33 +1,29 @@
-import React from 'react'
+/** @format */
 
-import Input from '../Input'
-import Button from '../Button'
-import ListSetting from '../ListSetting'
-import Popout from '../Popout'
-import ColorPicker from '../ColorPicker'
-import { HIGHLIGHT_KEYS, COLORS } from '../../lib/constants'
-import { stringifyColor, generateId } from '../../lib/util'
+import React from 'react';
+
+import Input from '../Input';
+import Button from '../Button';
+import ListSetting from '../ListSetting';
+import Popout from '../Popout';
+import ColorPicker from '../ColorPicker';
+import { HIGHLIGHT_KEYS, COLORS } from '../../lib/constants';
+import { stringifyColor, generateId } from '../../lib/util';
 
 const colorPickerStyle = {
   backgroundColor: COLORS.BLACK,
   padding: 0,
   margin: '4px',
-}
+};
 
-const colorPresets = []
+const colorPresets = [];
 
 const HighlightPicker = ({ title, onChange, color }) => (
   <div className="color-picker-container">
     <div className="color-picker-header">
       <span className="capitalize">{title}</span>
     </div>
-    <ColorPicker
-      key={title}
-      color={color}
-      onChange={onChange}
-      presets={colorPresets}
-      style={colorPickerStyle}
-    />
+    <ColorPicker key={title} color={color} onChange={onChange} presets={colorPresets} style={colorPickerStyle} />
     <style jsx>
       {`
         .color-picker-container {
@@ -46,33 +42,18 @@ const HighlightPicker = ({ title, onChange, color }) => (
       `}
     </style>
   </div>
-)
+);
 
-const ThemeCreate = ({
-  theme,
-  themes,
-  highlights,
-  create,
-  updateHighlights,
-  name,
-  onInputChange,
-}) => {
-  const [preset, updatePreset] = React.useState(theme.id)
-  const [highlight, selectHighlight] = React.useState()
+const ThemeCreate = ({ theme, themes, highlights, create, updateHighlights, name, onInputChange }) => {
+  const [preset, updatePreset] = React.useState(theme.id);
+  const [highlight, selectHighlight] = React.useState();
 
   return (
     <Popout pointerLeft="15px" style={{ display: 'flex' }}>
       <div className="theme-settings">
         <div className="field name-field">
           <span>Name</span>
-          <Input
-            title="name"
-            name="name"
-            placeholder="Custom Theme"
-            value={name}
-            onChange={onInputChange}
-            maxLength="32"
-          />
+          <Input title="name" name="name" placeholder="Custom Theme" value={name} onChange={onInputChange} maxLength="32" />
         </div>
         <div className="theme-select">
           <ListSetting
@@ -81,8 +62,8 @@ const ThemeCreate = ({
             selected={preset}
             onOpen={() => selectHighlight(null)}
             onChange={id => {
-              updatePreset(id)
-              updateHighlights(themes.find(t => t.id === id).highlights)
+              updatePreset(id);
+              updateHighlights(themes.find(t => t.id === id).highlights);
             }}
           >
             {({ name }) => <span>{name}</span>}
@@ -102,9 +83,7 @@ const ThemeCreate = ({
                     className="color-square"
                     style={{
                       backgroundColor: highlights[key],
-                      boxShadow: `inset 0px 0px 0px ${highlight === key ? 2 : 1}px ${
-                        COLORS.SECONDARY
-                      }`,
+                      boxShadow: `inset 0px 0px 0px ${highlight === key ? 2 : 1}px ${COLORS.SECONDARY}`,
                     }}
                   />
                 </div>
@@ -195,7 +174,7 @@ const ThemeCreate = ({
         `}
       </style>
     </Popout>
-  )
-}
+  );
+};
 
-export default ThemeCreate
+export default ThemeCreate;

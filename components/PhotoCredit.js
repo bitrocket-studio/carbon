@@ -1,12 +1,11 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export default function PhotoCredit({ photographer }) {
   return (
     <div className="photo-credit">
-      Photo by{' '}
-      <a href={`${photographer.profile_url}?utm_source=carbon&utm_medium=referral`}>
-        {photographer.name}
-      </a>
+      Photo by <a href={`${photographer.profile_url}?utm_source=carbon&utm_medium=referral`}>{photographer.name}</a>
       <style jsx>
         {`
           .photo-credit {
@@ -25,5 +24,5 @@ export default function PhotoCredit({ photographer }) {
         `}
       </style>
     </div>
-  )
+  );
 }

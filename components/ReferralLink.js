@@ -1,6 +1,8 @@
-import React from 'react'
+/** @format */
 
-import { COLORS } from '../lib/constants'
+import React from 'react';
+
+import { COLORS } from '../lib/constants';
 
 export default function ReferralLink(props) {
   return (
@@ -21,5 +23,5 @@ export default function ReferralLink(props) {
         `}
       </style>
     </a>
-  )
+  );
 }

@@ -1,23 +1,25 @@
-import React from 'react'
-import omitBy from 'lodash.omitby'
-import { useKeyboardListener } from 'actionsack'
+/** @format */
 
-import ThemeSelect from './ThemeSelect'
-import FontSelect from './FontSelect'
-import Slider from './Slider'
-import Input from './Input'
-import Toggle from './Toggle'
-import Popout, { managePopout } from './Popout'
-import Button from './Button'
-import Presets from './Presets'
-import MenuButton from './MenuButton'
-import { COLORS, DEFAULT_PRESETS, DEFAULT_SETTINGS, DEFAULT_WIDTHS } from '../lib/constants'
-import { toggle, getPresets, savePresets, generateId, fileToJSON } from '../lib/util'
-import SettingsIcon from './svg/Settings'
+import React from 'react';
+import omitBy from 'lodash.omitby';
+import { useKeyboardListener } from 'actionsack';
+
+import ThemeSelect from './ThemeSelect';
+import FontSelect from './FontSelect';
+import Slider from './Slider';
+import Input from './Input';
+import Toggle from './Toggle';
+import Popout, { managePopout } from './Popout';
+import Button from './Button';
+import Presets from './Presets';
+import MenuButton from './MenuButton';
+import { COLORS, DEFAULT_PRESETS, DEFAULT_SETTINGS, DEFAULT_WIDTHS } from '../lib/constants';
+import { toggle, getPresets, savePresets, generateId, fileToJSON } from '../lib/util';
+import SettingsIcon from './svg/Settings';
 
 function KeyboardShortcut({ trigger, handle }) {
-  useKeyboardListener(trigger, handle)
-  return null
+  useKeyboardListener(trigger, handle);
+  return null;
 }
 
 function WindowSettings({
@@ -37,18 +39,9 @@ function WindowSettings({
 }) {
   return (
     <div className="settings-content">
-      <ThemeSelect
-        selected={windowTheme || 'none'}
-        windowControls={windowControls}
-        onChange={onChange}
-      />
+      <ThemeSelect selected={windowTheme || 'none'} windowControls={windowControls} onChange={onChange} />
       <div className="row">
-        <Slider
-          label="Padding (vert)"
-          value={paddingVertical}
-          maxValue={200}
-          onChange={onChange.bind(null, 'paddingVertical')}
-        />
+        <Slider label="Padding (vert)" value={paddingVertical} maxValue={200} onChange={onChange.bind(null, 'paddingVertical')} />
         <Slider
           label="Padding (horiz)"
           value={paddingHorizontal}
@@ -57,30 +50,14 @@ function WindowSettings({
           onMouseUp={onWidthChanged}
         />
       </div>
-      <Toggle
-        label="Drop shadow"
-        enabled={dropShadow}
-        onChange={onChange.bind(null, 'dropShadow')}
-      />
+      <Toggle label="Drop shadow" enabled={dropShadow} onChange={onChange.bind(null, 'dropShadow')} />
       {dropShadow && (
         <div className="row drop-shadow-options">
-          <Slider
-            label="(offset-y)"
-            value={dropShadowOffsetY}
-            onChange={onChange.bind(null, 'dropShadowOffsetY')}
-          />
-          <Slider
-            label="(blur-radius)"
-            value={dropShadowBlurRadius}
-            onChange={onChange.bind(null, 'dropShadowBlurRadius')}
-          />
+          <Slider label="(offset-y)" value={dropShadowOffsetY} onChange={onChange.bind(null, 'dropShadowOffsetY')} />
+          <Slider label="(blur-radius)" value={dropShadowBlurRadius} onChange={onChange.bind(null, 'dropShadowBlurRadius')} />
         </div>
       )}
-      <Toggle
-        label="Auto-adjust width"
-        enabled={widthAdjustment}
-        onChange={onChange.bind(null, 'widthAdjustment')}
-      />
+      <Toggle label="Auto-adjust width" enabled={widthAdjustment} onChange={onChange.bind(null, 'widthAdjustment')} />
       {!widthAdjustment && (
         <div className="row settings-row width-row">
           <Input
@@ -117,7 +94,7 @@ function WindowSettings({
         `}
       </style>
     </div>
-  )
+  );
 }
 
 function EditorSettings({
@@ -134,11 +111,7 @@ function EditorSettings({
 }) {
   return (
     <div className="settings-content">
-      <FontSelect
-        selected={font}
-        onUpload={onUpload}
-        onChange={onChange.bind(null, 'fontFamily')}
-      />
+      <FontSelect selected={font} onUpload={onUpload} onChange={onChange.bind(null, 'fontFamily')} />
       <Slider
         label="Size"
         value={size}
@@ -149,19 +122,8 @@ function EditorSettings({
         onMouseDown={onWidthChanging}
         onMouseUp={onWidthChanged}
       />
-      <Slider
-        label="Line height"
-        value={lineHeight}
-        minValue={90}
-        maxValue={250}
-        unit="%"
-        onChange={onChange.bind(null, 'lineHeight')}
-      />
-      <Toggle
-        label="Line numbers"
-        enabled={lineNumbers}
-        onChange={onChange.bind(null, 'lineNumbers')}
-      />
+      <Slider label="Line height" value={lineHeight} minValue={90} maxValue={250} unit="%" onChange={onChange.bind(null, 'lineHeight')} />
+      <Toggle label="Line numbers" enabled={lineNumbers} onChange={onChange.bind(null, 'lineNumbers')} />
       {lineNumbers && (
         <div className="row settings-row first-line-number-row">
           <Input
@@ -174,11 +136,7 @@ function EditorSettings({
           />
         </div>
       )}
-      <Toggle
-        label="Hidden characters"
-        enabled={hiddenCharacters}
-        onChange={onChange.bind(null, 'hiddenCharacters')}
-      />
+      <Toggle label="Hidden characters" enabled={hiddenCharacters} onChange={onChange.bind(null, 'hiddenCharacters')} />
       <style jsx>
         {`
           .first-line-number-row {
@@ -187,16 +145,16 @@ function EditorSettings({
         `}
       </style>
     </div>
-  )
+  );
 }
 
-const resetButtonStyle = { borderTop: `1px solid ${COLORS.SECONDARY}` }
+const resetButtonStyle = { borderTop: `1px solid ${COLORS.SECONDARY}` };
 
 function MiscSettings({ format, reset, applyPreset, settings }) {
-  const input = React.useRef(null)
-  let download
+  const input = React.useRef(null);
+  let download;
   try {
-    download = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(settings))}`
+    download = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(settings))}`;
   } catch (error) {
     // pass
   }
@@ -209,17 +167,13 @@ function MiscSettings({ format, reset, applyPreset, settings }) {
           type="file"
           accept=".json"
           onChange={async e => {
-            const json = await fileToJSON(e.target.files[0])
+            const json = await fileToJSON(e.target.files[0]);
             if (json) {
-              applyPreset(json)
+              applyPreset(json);
             }
           }}
         />
-        <Button
-          center
-          style={{ borderRight: `1px solid ${COLORS.SECONDARY}` }}
-          onClick={() => input.current.click()}
-        >
+        <Button center style={{ borderRight: `1px solid ${COLORS.SECONDARY}` }} onClick={() => input.current.click()}>
           Import config
         </Button>
         <Button center Component="a" href={download} download="carbon-config.json">
@@ -249,17 +203,17 @@ function MiscSettings({ format, reset, applyPreset, settings }) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
 const settingButtonStyle = {
   width: '40px',
   height: '100%',
-}
+};
 
 const invalidSetting = (v, k) =>
   // Allow highlights in presets and config exports
-  !(Object.prototype.hasOwnProperty.call(DEFAULT_SETTINGS, k) || k === 'highlights')
+  !(Object.prototype.hasOwnProperty.call(DEFAULT_SETTINGS, k) || k === 'highlights');
 
 class Settings extends React.PureComponent {
   state = {
@@ -268,103 +222,100 @@ class Settings extends React.PureComponent {
     showPresets: true,
     previousSettings: null,
     widthChanging: false,
-  }
+  };
 
-  settingsRef = React.createRef()
-  menuRef = React.createRef()
+  settingsRef = React.createRef();
+  menuRef = React.createRef();
 
   componentDidMount() {
-    const storedPresets = getPresets(localStorage) || []
+    const storedPresets = getPresets(localStorage) || [];
     this.setState(({ presets }) => ({
       presets: [...storedPresets, ...presets],
-    }))
+    }));
   }
 
-  togglePresets = () => this.setState(toggle('showPresets'))
+  togglePresets = () => this.setState(toggle('showPresets'));
 
-  selectMenu = selectedMenu => () => this.setState({ selectedMenu })
+  selectMenu = selectedMenu => () => this.setState({ selectedMenu });
 
   handleWidthChanging = () => {
-    const rect = this.settingsRef.current.getBoundingClientRect()
-    this.settingPosition = { top: rect.bottom, left: rect.left }
-    this.setState({ widthChanging: true })
-  }
+    const rect = this.settingsRef.current.getBoundingClientRect();
+    this.settingPosition = { top: rect.bottom, left: rect.left };
+    this.setState({ widthChanging: true });
+  };
 
-  handleWidthChanged = () => this.setState({ widthChanging: false })
+  handleWidthChanged = () => this.setState({ widthChanging: false });
 
   handleChange = (key, value) => {
-    this.props.onChange(key, value)
-    this.setState({ previousSettings: null })
-  }
+    this.props.onChange(key, value);
+    this.setState({ previousSettings: null });
+  };
 
   handleOpenAndFocus = () => {
-    this.props.toggleVisibility()
+    this.props.toggleVisibility();
     if (!this.props.isVisible) {
-      this.menuRef.current.focus()
+      this.menuRef.current.focus();
     }
-  }
+  };
 
   handleReset = () => {
-    this.props.resetDefaultSettings()
-    this.setState({ previousSettings: null })
-  }
+    this.props.resetDefaultSettings();
+    this.setState({ previousSettings: null });
+  };
 
   handleFontUpload = (id, url) => {
-    this.props.onChange('fontFamily', id)
-    this.props.onChange('fontUrl', url)
-    this.props.toggleVisibility()
-  }
+    this.props.onChange('fontFamily', id);
+    this.props.onChange('fontUrl', url);
+    this.props.toggleVisibility();
+  };
 
-  getSettingsFromProps = () => omitBy(this.props, invalidSetting)
+  getSettingsFromProps = () => omitBy(this.props, invalidSetting);
 
   applyPreset = preset => {
-    const previousSettings = this.getSettingsFromProps()
+    const previousSettings = this.getSettingsFromProps();
 
-    this.props.applyPreset(preset)
+    this.props.applyPreset(preset);
 
-    this.setState({ previousSettings })
-  }
+    this.setState({ previousSettings });
+  };
 
   undoPreset = () => {
-    this.props.applyPreset({ ...this.state.previousSettings, id: null })
-    this.setState({ previousSettings: null })
-  }
+    this.props.applyPreset({ ...this.state.previousSettings, id: null });
+    this.setState({ previousSettings: null });
+  };
 
   removePreset = id => {
     if (this.props.preset === id) {
-      this.props.onChange('preset', null)
-      this.setState({ previousSettings: null })
+      this.props.onChange('preset', null);
+      this.setState({ previousSettings: null });
     }
-    this.setState(
-      ({ presets }) => ({ presets: presets.filter(p => p.id !== id) }),
-      this.savePresets
-    )
-  }
+    this.setState(({ presets }) => ({ presets: presets.filter(p => p.id !== id) }), this.savePresets);
+  };
 
   createPreset = async () => {
-    const newPreset = this.getSettingsFromProps()
+    const newPreset = this.getSettingsFromProps();
 
-    newPreset.id = `preset:${generateId()}`
-    newPreset.custom = true
+    newPreset.id = `preset:${generateId()}`;
+    newPreset.custom = true;
 
     newPreset.icon = await this.props.getCarbonImage({
       format: 'png',
       squared: true,
       exportSize: 1,
-    })
+    });
 
-    this.props.onChange('preset', newPreset.id)
+    this.props.onChange('preset', newPreset.id);
 
     this.setState(
       ({ presets }) => ({
         previousSettings: null,
         presets: [newPreset, ...presets],
       }),
-      this.savePresets
-    )
-  }
+      this.savePresets,
+    );
+  };
 
-  savePresets = () => savePresets(this.state.presets.filter(p => p.custom))
+  savePresets = () => savePresets(this.state.presets.filter(p => p.custom));
 
   renderContent = () => {
     switch (this.state.selectedMenu) {
@@ -385,7 +336,7 @@ class Settings extends React.PureComponent {
             width={this.props.width}
             watermark={this.props.watermark}
           />
-        )
+        );
       case 'Editor':
         return (
           <EditorSettings
@@ -400,39 +351,27 @@ class Settings extends React.PureComponent {
             firstLineNumber={this.props.firstLineNumber}
             hiddenCharacters={this.props.hiddenCharacters}
           />
-        )
+        );
       case 'Misc': {
-        const settings = this.getSettingsFromProps()
+        const settings = this.getSettingsFromProps();
         return (
-          <MiscSettings
-            format={this.props.format}
-            reset={this.handleReset}
-            applyPreset={this.props.applyPreset}
-            settings={settings}
-          />
-        )
+          <MiscSettings format={this.props.format} reset={this.handleReset} applyPreset={this.props.applyPreset} settings={settings} />
+        );
       }
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   render() {
-    const { selectedMenu, showPresets, presets, previousSettings, widthChanging } = this.state
-    const { preset, isVisible, toggleVisibility } = this.props
+    const { selectedMenu, showPresets, presets, previousSettings, widthChanging } = this.state;
+    const { preset, isVisible, toggleVisibility } = this.props;
 
     return (
       <div className="settings-container" ref={this.settingsRef}>
         <KeyboardShortcut trigger="⌘-/" handle={this.handleOpenAndFocus} />
         <KeyboardShortcut trigger="⇧-⌘-\" handle={this.handleReset} />
-        <Button
-          title="Settings Menu"
-          border
-          center
-          selected={isVisible}
-          style={settingButtonStyle}
-          onClick={toggleVisibility}
-        >
+        <Button title="Settings Menu" border center selected={isVisible} style={settingButtonStyle} onClick={toggleVisibility}>
           <SettingsIcon />
         </Button>
         <Popout
@@ -493,8 +432,8 @@ class Settings extends React.PureComponent {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-export default managePopout(Settings)
+export default managePopout(Settings);

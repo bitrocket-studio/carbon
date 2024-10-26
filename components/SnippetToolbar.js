@@ -1,39 +1,32 @@
-import React from 'react'
-import { useAsyncCallback, useOnline, useKeyboardListener } from 'actionsack'
+/** @format */
 
-import Button from './Button'
-import Toolbar from './Toolbar'
-import Input from './Input'
-import ConfirmButton from './ConfirmButton'
-import Popout, { managePopout } from './Popout'
-import { Down as ArrowDown } from './svg/Arrows'
-import { useAuth } from './AuthContext'
+import React from 'react';
+import { useAsyncCallback, useOnline, useKeyboardListener } from 'actionsack';
 
-import { COLORS } from '../lib/constants'
+import Button from './Button';
+import Toolbar from './Toolbar';
+import Input from './Input';
+import ConfirmButton from './ConfirmButton';
+import Popout, { managePopout } from './Popout';
+import { Down as ArrowDown } from './svg/Arrows';
+import { useAuth } from './AuthContext';
 
-const popoutStyle = { width: '120px', right: -8, top: 40 }
+import { COLORS } from '../lib/constants';
+
+const popoutStyle = { width: '120px', right: -8, top: 40 };
 
 function DeleteButton(props) {
-  const [onClick, { loading }] = useAsyncCallback(props.onClick)
+  const [onClick, { loading }] = useAsyncCallback(props.onClick);
 
   return (
-    <ConfirmButton
-      display="block"
-      padding="8px"
-      flex="unset"
-      center
-      large
-      color="#fff"
-      onClick={onClick}
-      style={{ color: COLORS.RED }}
-    >
+    <ConfirmButton display="block" padding="8px" flex="unset" center large color="#fff" onClick={onClick} style={{ color: COLORS.RED }}>
       {loading ? 'Deleting…' : 'Delete'}
     </ConfirmButton>
-  )
+  );
 }
 
 function DuplicateButton(props) {
-  const [onClick, { loading }] = useAsyncCallback(props.onClick)
+  const [onClick, { loading }] = useAsyncCallback(props.onClick);
 
   return (
     <Button
@@ -49,17 +42,17 @@ function DuplicateButton(props) {
     >
       {loading ? 'Duplicating…' : 'Duplicate'}
     </Button>
-  )
+  );
 }
 
 function SaveButton({ loading, onClick, sameUser }) {
   useKeyboardListener('⌥-s', e => {
     if (loading) {
-      return
+      return;
     }
-    e.preventDefault()
-    onClick()
-  })
+    e.preventDefault();
+    onClick();
+  });
 
   return (
     <Button
@@ -79,25 +72,25 @@ function SaveButton({ loading, onClick, sameUser }) {
     >
       {loading ? 'Saving…' : 'Save'}
     </Button>
-  )
+  );
 }
 
 function SnippetToolbar({ toggleVisibility, isVisible, snippet, ...props }) {
-  const user = useAuth()
-  const online = useOnline()
+  const user = useAuth();
+  const online = useOnline();
 
   const [save, { loading }] = useAsyncCallback(() => {
     if (snippet) {
-      return props.onUpdate()
+      return props.onUpdate();
     } else {
-      return props.onCreate()
+      return props.onCreate();
     }
-  })
+  });
 
-  if (!online) return null
-  if (!user) return null
+  if (!online) return null;
+  if (!user) return null;
 
-  const sameUser = snippet && user.uid === snippet.userId
+  const sameUser = snippet && user.uid === snippet.userId;
 
   return (
     <Toolbar
@@ -159,7 +152,7 @@ function SnippetToolbar({ toggleVisibility, isVisible, snippet, ...props }) {
         `}
       </style>
     </Toolbar>
-  )
+  );
 }
 
-export default managePopout(SnippetToolbar)
+export default managePopout(SnippetToolbar);

@@ -1,5 +1,7 @@
-import React from 'react'
-import { COLORS } from '../../lib/constants'
+/** @format */
+
+import React from 'react';
+import { COLORS } from '../../lib/constants';
 
 export default function Reset() {
   return (
@@ -141,8 +143,7 @@ export default function Reset() {
           text-rendering: optimizeLegibility;
           background: ${COLORS.BLACK};
           color: white;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu,
-            'Helvetica Neue', sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', sans-serif;
           font-weight: 400;
           font-style: normal;
           text-transform: initial;
@@ -194,11 +195,7 @@ export default function Reset() {
           color: #fff;
           text-decoration: none;
           padding-bottom: 3px;
-          background: linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0.7) 0%,
-            rgba(255, 255, 255, 0.7) 100%
-          );
+          background: linear-gradient(to right, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.7) 100%);
           background-size: 1px 1px;
           background-position: 0 100%;
           background-repeat: repeat-x;
@@ -228,5 +225,5 @@ export default function Reset() {
         }
       `}
     </style>
-  )
+  );
 }

@@ -1,14 +1,10 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export default function Watermark({ light }) {
   return (
-    <svg
-      className="watermark"
-      xmlns="http://www.w3.org/2000/svg"
-      width="55"
-      height="23"
-      viewBox="0 0 55 23"
-    >
+    <svg className="watermark" xmlns="http://www.w3.org/2000/svg" width="55" height="23" viewBox="0 0 55 23">
       <g fill="none" fillRule="evenodd" transform="translate(0 .5)">
         <g fillRule="nonzero">
           <g fill={light ? '9e9e9e' : '#616161'} opacity=".598" transform="translate(1 1)">
@@ -24,5 +20,5 @@ export default function Watermark({ light }) {
         />
       </g>
     </svg>
-  )
+  );
 }

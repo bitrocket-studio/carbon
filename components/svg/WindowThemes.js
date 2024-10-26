@@ -1,13 +1,9 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export const Sharp = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="60"
-    height="60"
-    viewBox="0 0 81 81"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 81 81" xmlnsXlink="http://www.w3.org/1999/xlink">
     <defs>
       <rect id="a1" width="81" height="81" rx="3" />
     </defs>
@@ -23,40 +19,16 @@ export const Sharp = () => (
           d="M66.0458013,46.1092762 C66.0458013,48.3193105 64.2622787,50.1077029 62.050805,50.1077029 L0.174089069,50.1077029 L0.174089069,6.16868499 C0.174089069,0.174657534 0.174089069,0.174657534 0.174089069,0.174657534 L66.0458013,0.174657534 L66.0458013,46.1092762 Z"
         />
         <g transform="translate(19.96 15.27)">
-          <ellipse
-            cx="7.045"
-            cy="7.048"
-            fill="#FF5E55"
-            fillRule="nonzero"
-            stroke="#E0443E"
-            strokeWidth=".5"
-            rx="7.045"
-            ry="7.048"
-          />
-          <ellipse
-            cx="30.526"
-            cy="7.048"
-            fill="#FFC02C"
-            fillRule="nonzero"
-            stroke="#DEA123"
-            strokeWidth=".5"
-            rx="7.045"
-            ry="7.048"
-          />
+          <ellipse cx="7.045" cy="7.048" fill="#FF5E55" fillRule="nonzero" stroke="#E0443E" strokeWidth=".5" rx="7.045" ry="7.048" />
+          <ellipse cx="30.526" cy="7.048" fill="#FFC02C" fillRule="nonzero" stroke="#DEA123" strokeWidth=".5" rx="7.045" ry="7.048" />
         </g>
       </g>
     </g>
   </svg>
-)
+);
 
 export const BW = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="60"
-    height="60"
-    viewBox="0 0 81 81"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 81 81" xmlnsXlink="http://www.w3.org/1999/xlink">
     <defs>
       <rect id="a2" width="81" height="81" rx="3" />
     </defs>
@@ -79,16 +51,10 @@ export const BW = () => (
       </g>
     </g>
   </svg>
-)
+);
 
 export const None = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="60"
-    height="60"
-    viewBox="0 0 81 81"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 81 81" xmlnsXlink="http://www.w3.org/1999/xlink">
     <defs>
       <rect id="a3" width="81" height="81" rx="3" />
     </defs>
@@ -110,7 +76,7 @@ export const None = () => (
       </g>
     </g>
   </svg>
-)
+);
 
 export const Boxy = () => (
   <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,19 +100,9 @@ export const Boxy = () => (
           d="M18.3333 34H10.3333C9.78105 34 9.33333 34.4477 9.33333 35V43C9.33333 43.5523 9.78105 44 10.3333 44H18.3333C18.8856 44 19.3333 43.5523 19.3333 43V35C19.3333 34.4477 18.8856 34 18.3333 34Z"
           stroke="#878787"
         />
-        <path
-          d="M29.3333 34.8333L37.6667 43.1667"
-          stroke="#878787"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M29.3333 43.1667L37.6667 34.8333"
-          stroke="#878787"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d="M29.3333 34.8333L37.6667 43.1667" stroke="#878787" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M29.3333 43.1667L37.6667 34.8333" stroke="#878787" strokeLinecap="round" strokeLinejoin="round" />
       </g>
     </g>
   </svg>
-)
+);

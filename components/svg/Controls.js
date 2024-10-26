@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export const Controls = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
@@ -8,7 +10,7 @@ export const Controls = () => (
       <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" strokeWidth=".5" />
     </g>
   </svg>
-)
+);
 
 export const ControlsBW = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
@@ -18,7 +20,7 @@ export const ControlsBW = () => (
       <circle cx="46" cy="6" r="6" />
     </g>
   </svg>
-)
+);
 
 export const ControlsBoxy = () => (
   <svg width="58" height="14" viewBox="0 0 58 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,4 +32,4 @@ export const ControlsBoxy = () => (
     <path d="M47 2L57 12" stroke="#878787" strokeLinecap="round" strokeLinejoin="round" />
     <path d="M47 12L57 2" stroke="#878787" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
-)
+);

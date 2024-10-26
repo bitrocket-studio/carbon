@@ -1,9 +1,11 @@
-import React from 'react'
-import { useKeyboardListener } from 'actionsack'
-import Popout from './Popout'
-import Button from './Button'
-import ColorPicker from './ColorPicker'
-import { COLORS } from '../lib/constants'
+/** @format */
+
+import React from 'react';
+import { useKeyboardListener } from 'actionsack';
+import Popout from './Popout';
+import Button from './Button';
+import ColorPicker from './ColorPicker';
+import { COLORS } from '../lib/constants';
 
 function ModifierButton(props) {
   return (
@@ -18,7 +20,7 @@ function ModifierButton(props) {
     >
       {props.children}
     </Button>
-  )
+  );
 }
 
 function reducer(state, action) {
@@ -27,45 +29,45 @@ function reducer(state, action) {
       return {
         ...state,
         bold: !state.bold,
-      }
+      };
     }
     case 'ITALICS': {
       return {
         ...state,
         italics: !state.italics,
-      }
+      };
     }
     case 'UNDERLINE': {
       return {
         ...state,
         underline: Number(state.underline + 1) % 3,
-      }
+      };
     }
     case 'COLOR': {
       return {
         ...state,
         color: action.color,
-      }
+      };
     }
   }
-  throw new Error('Invalid action')
+  throw new Error('Invalid action');
 }
 
 function SelectionEditor({ onChange }) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
 
-  useKeyboardListener('Escape', () => setOpen(false))
+  useKeyboardListener('Escape', () => setOpen(false));
 
   const [state, dispatch] = React.useReducer(reducer, {
     bold: null,
     italics: null,
     underline: null,
     color: null,
-  })
+  });
 
   React.useEffect(() => {
-    onChange(state)
-  }, [onChange, state])
+    onChange(state);
+  }, [onChange, state]);
 
   return (
     <div style={{ position: 'relative' }}>
@@ -129,7 +131,7 @@ function SelectionEditor({ onChange }) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
-export default SelectionEditor
+export default SelectionEditor;

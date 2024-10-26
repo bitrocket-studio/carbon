@@ -1,1 +1,3 @@
-module.exports = require('now-release')
+/** @format */
+
+module.exports = require('now-release');

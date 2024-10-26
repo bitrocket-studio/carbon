@@ -1,59 +1,55 @@
-import React from 'react'
-import { DEFAULT_WIDTHS, COLORS } from '../lib/constants'
+/** @format */
 
-const { minWidth, maxWidth } = DEFAULT_WIDTHS
+import React from 'react';
+import { DEFAULT_WIDTHS, COLORS } from '../lib/constants';
+
+const { minWidth, maxWidth } = DEFAULT_WIDTHS;
 
 function clamp(value, min, max) {
   if (value < min) {
-    return min
+    return min;
   }
   if (value > max) {
-    return max
+    return max;
   }
-  return value
+  return value;
 }
 
-export default function WidthHandler({
-  innerRef,
-  onChange,
-  onChangeComplete,
-  paddingHorizontal,
-  paddingVertical,
-}) {
-  const startX = React.useRef(null)
-  const startWidth = React.useRef(null)
+export default function WidthHandler({ innerRef, onChange, onChangeComplete, paddingHorizontal, paddingVertical }) {
+  const startX = React.useRef(null);
+  const startWidth = React.useRef(null);
 
   React.useEffect(() => {
     function handleMouseMove(e) {
-      if (!startX.current) return
+      if (!startX.current) return;
 
-      const delta = e.pageX - startX.current // leftOrRight === 'left' ? startX - e.pageX : (startX - e.pageX) * -1
-      const calculated = startWidth.current + delta * window.devicePixelRatio
-      const newWidth = clamp(calculated, minWidth, maxWidth)
+      const delta = e.pageX - startX.current; // leftOrRight === 'left' ? startX - e.pageX : (startX - e.pageX) * -1
+      const calculated = startWidth.current + delta * window.devicePixelRatio;
+      const newWidth = clamp(calculated, minWidth, maxWidth);
 
-      onChange(newWidth)
+      onChange(newWidth);
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [innerRef, onChange])
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [innerRef, onChange]);
 
   React.useEffect(() => {
     function handleMouseUp() {
-      startX.current = null
-      onChangeComplete()
+      startX.current = null;
+      onChangeComplete();
     }
-    window.addEventListener('mouseup', handleMouseUp)
-    return () => window.removeEventListener('mouseup', handleMouseUp)
-  }, [onChangeComplete])
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => window.removeEventListener('mouseup', handleMouseUp);
+  }, [onChangeComplete]);
 
   return (
     // eslint-disable-next-line
     <div
       className="handler"
       onMouseDown={e => {
-        startX.current = e.pageX
-        startWidth.current = innerRef.current.clientWidth
+        startX.current = e.pageX;
+        startWidth.current = innerRef.current.clientWidth;
       }}
       role="separator"
       aria-orientation="vertical"
@@ -79,5 +75,5 @@ export default function WidthHandler({
         `}
       </style>
     </div>
-  )
+  );
 }

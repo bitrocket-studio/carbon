@@ -1,68 +1,66 @@
-import React from 'react'
-import Downshift from 'downshift'
-import { matchSorter } from 'match-sorter'
-import VisuallyHidden from '@reach/visually-hidden'
-import { Down as ArrowDown } from './svg/Arrows'
-import CheckMark from './svg/Checkmark'
-import { COLORS } from '../lib/constants'
+/** @format */
+
+import React from 'react';
+import Downshift from 'downshift';
+import { matchSorter } from 'match-sorter';
+import VisuallyHidden from '@reach/visually-hidden';
+import { Down as ArrowDown } from './svg/Arrows';
+import CheckMark from './svg/Checkmark';
+import { COLORS } from '../lib/constants';
 
 class Dropdown extends React.PureComponent {
   state = {
     inputValue: this.props.selected.name,
     itemsToShow: this.props.list,
-  }
+  };
 
   onUserAction = changes => {
     this.setState(({ inputValue, itemsToShow }) => {
       if (Object.prototype.hasOwnProperty.call(changes, 'inputValue')) {
         if (changes.type === Downshift.stateChangeTypes.keyDownEscape) {
-          inputValue = this.userInputtedValue
+          inputValue = this.userInputtedValue;
         } else if (changes.type === Downshift.stateChangeTypes.changeInput) {
-          inputValue = changes.inputValue
-          this.userInputtedValue = changes.inputValue
+          inputValue = changes.inputValue;
+          this.userInputtedValue = changes.inputValue;
         } else {
-          inputValue = changes.inputValue
+          inputValue = changes.inputValue;
         }
       }
 
-      itemsToShow = this.userInputtedValue
-        ? matchSorter(this.props.list, this.userInputtedValue, { keys: ['name'] })
-        : this.props.list
+      itemsToShow = this.userInputtedValue ? matchSorter(this.props.list, this.userInputtedValue, { keys: ['name'] }) : this.props.list;
 
       if (
         Object.prototype.hasOwnProperty.call(changes, 'highlightedIndex') &&
-        (changes.type === Downshift.stateChangeTypes.keyDownArrowUp ||
-          changes.type === Downshift.stateChangeTypes.keyDownArrowDown)
+        (changes.type === Downshift.stateChangeTypes.keyDownArrowUp || changes.type === Downshift.stateChangeTypes.keyDownArrowDown)
       ) {
-        inputValue = itemsToShow[changes.highlightedIndex].name
-        this.props.onChange(itemsToShow[changes.highlightedIndex])
+        inputValue = itemsToShow[changes.highlightedIndex].name;
+        this.props.onChange(itemsToShow[changes.highlightedIndex]);
       }
 
       if (Object.prototype.hasOwnProperty.call(changes, 'isOpen')) {
-        this.userInputtedValue = ''
+        this.userInputtedValue = '';
 
         // clear on open
         if (changes.isOpen) {
-          inputValue = ''
-          this.props.onOpen && this.props.onOpen()
+          inputValue = '';
+          this.props.onOpen && this.props.onOpen();
         } else if (changes.isOpen === false && !inputValue) {
           // set on close
-          inputValue = this.props.selected.name
+          inputValue = this.props.selected.name;
         }
       }
 
-      return { inputValue, itemsToShow }
-    })
-  }
+      return { inputValue, itemsToShow };
+    });
+  };
 
-  userInputtedValue = ''
+  userInputtedValue = '';
 
   render() {
-    const { innerRef, color, selected, onChange, itemWrapper, icon, disableInput, title } =
-      this.props
-    const { itemsToShow, inputValue } = this.state
+    const { innerRef, color, selected, onChange, itemWrapper, icon, disableInput, title } = this.props;
+    const { itemsToShow, inputValue } = this.state;
 
-    const labelId = title ? `${title.toLowerCase()}-dropdown` : undefined
+    const labelId = title ? `${title.toLowerCase()}-dropdown` : undefined;
 
     return (
       <Downshift
@@ -86,21 +84,13 @@ class Dropdown extends React.PureComponent {
           labelId,
         })}
       </Downshift>
-    )
+    );
   }
 }
 
 const renderDropdown =
   ({ color, list, itemWrapper, icon, disableInput, title, labelId }) =>
-  ({
-    isOpen,
-    highlightedIndex,
-    selectedItem,
-    getRootProps,
-    getToggleButtonProps,
-    getInputProps,
-    getItemProps,
-  }) => {
+  ({ isOpen, highlightedIndex, selectedItem, getRootProps, getToggleButtonProps, getInputProps, getItemProps }) => {
     return (
       <DropdownContainer {...getRootProps({ refKey: 'innerRef' })}>
         {title && <VisuallyHidden id={labelId}>{title}</VisuallyHidden>}
@@ -135,8 +125,8 @@ const renderDropdown =
           </ListItems>
         ) : null}
       </DropdownContainer>
-    )
-  }
+    );
+  };
 
 const DropdownContainer = ({ children, innerRef, ...rest }) => {
   return (
@@ -153,8 +143,8 @@ const DropdownContainer = ({ children, innerRef, ...rest }) => {
         `}
       </style>
     </div>
-  )
-}
+  );
+};
 
 const DropdownIcon = ({ children, isOpen }) => {
   if (children) {
@@ -178,22 +168,14 @@ const DropdownIcon = ({ children, isOpen }) => {
           `}
         </style>
       </div>
-    )
+    );
   } else {
-    return null
+    return null;
   }
-}
+};
 
-const SelectedItem = ({
-  getToggleButtonProps,
-  getInputProps,
-  children,
-  isOpen,
-  color,
-  hasIcon,
-  disabled,
-}) => {
-  const itemColor = color || COLORS.SECONDARY
+const SelectedItem = ({ getToggleButtonProps, getInputProps, children, isOpen, color, hasIcon, disabled }) => {
+  const itemColor = color || COLORS.SECONDARY;
 
   return (
     <span
@@ -250,8 +232,8 @@ const SelectedItem = ({
         `}
       </style>
     </span>
-  )
-}
+  );
+};
 
 const ListItems = ({ children, color }) => {
   return (
@@ -269,11 +251,11 @@ const ListItems = ({ children, color }) => {
         `}
       </style>
     </ul>
-  )
-}
+  );
+};
 
 const ListItem = ({ children, color, isHighlighted, isSelected, itemWrapper, item, ...rest }) => {
-  const itemColor = color || COLORS.SECONDARY
+  const itemColor = color || COLORS.SECONDARY;
 
   return (
     <li {...rest} className="dropdown-list-item" data-cy="dropdown-item">
@@ -307,7 +289,7 @@ const ListItem = ({ children, color, isHighlighted, isSelected, itemWrapper, ite
         `}
       </style>
     </li>
-  )
-}
+  );
+};
 
-export default Dropdown
+export default Dropdown;

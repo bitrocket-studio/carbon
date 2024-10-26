@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export default function Typography() {
   return (
@@ -113,5 +115,5 @@ export default function Typography() {
         }
       `}
     </style>
-  )
+  );
 }

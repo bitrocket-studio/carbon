@@ -1,20 +1,22 @@
-import React from 'react'
-import AuthContext from './AuthContext'
-import Meta from './Meta'
-import Header from './Header'
-import Footer from './Footer'
-import Announcement from './Announcement'
-import LoginButton from './LoginButton'
+/** @format */
+
+import React from 'react';
+import AuthContext from './AuthContext';
+import Meta from './Meta';
+import Header from './Header';
+import Footer from './Footer';
+import Announcement from './Announcement';
+import LoginButton from './LoginButton';
 
 const COLUMN = `
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-`
+`;
 class Page extends React.Component {
   render() {
-    const { children, enableHeroText, flex } = this.props
+    const { children, enableHeroText, flex } = this.props;
     return (
       <main className="main mb3">
         <Meta />
@@ -55,8 +57,8 @@ class Page extends React.Component {
           `}
         </style>
       </main>
-    )
+    );
   }
 }
 
-export default Page
+export default Page;

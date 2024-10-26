@@ -1,44 +1,44 @@
-import React from 'react'
-import { useAsyncCallback } from 'actionsack'
+/** @format */
 
-import { Spinner } from './Spinner'
-import { useAPI } from './ApiContext'
-import PhotoCredit from './PhotoCredit'
+import React from 'react';
+import { useAsyncCallback } from 'actionsack';
+
+import { Spinner } from './Spinner';
+import { useAPI } from './ApiContext';
+import PhotoCredit from './PhotoCredit';
 
 function RandomImage(props) {
-  const cacheRef = React.useRef([])
-  const [cacheIndex, updateIndex] = React.useState(0)
-  const api = useAPI()
+  const cacheRef = React.useRef([]);
+  const [cacheIndex, updateIndex] = React.useState(0);
+  const api = useAPI();
 
   const [selectImage, { loading: selecting }] = useAsyncCallback(() => {
-    const image = cacheRef.current[cacheIndex]
+    const image = cacheRef.current[cacheIndex];
 
-    return api.unsplash.download(image.id).then(data => props.onChange({ ...image, ...data }))
-  })
+    return api.unsplash.download(image.id).then(data => props.onChange({ ...image, ...data }));
+  });
 
-  const [updateCache, { loading: updating, error, data: imgs }] = useAsyncCallback(
-    api.unsplash.random
-  )
+  const [updateCache, { loading: updating, error, data: imgs }] = useAsyncCallback(api.unsplash.random);
 
-  const needsFetch = !error && !updating && (!imgs || cacheIndex > cacheRef.current.length - 2)
+  const needsFetch = !error && !updating && (!imgs || cacheIndex > cacheRef.current.length - 2);
 
   React.useEffect(() => {
     if (needsFetch) {
-      updateCache()
+      updateCache();
     }
-  }, [needsFetch, updateCache])
+  }, [needsFetch, updateCache]);
 
   React.useEffect(() => {
     if (imgs) {
-      cacheRef.current.push(...imgs)
+      cacheRef.current.push(...imgs);
     }
-  }, [imgs])
+  }, [imgs]);
 
-  const loading = updating || selecting
+  const loading = updating || selecting;
 
-  const cache = cacheRef.current
-  const photographer = cache[cacheIndex] && cache[cacheIndex].photographer
-  const bgImage = cache[cacheIndex] && cache[cacheIndex].dataURL
+  const cache = cacheRef.current;
+  const photographer = cache[cacheIndex] && cache[cacheIndex].photographer;
+  const bgImage = cache[cacheIndex] && cache[cacheIndex].dataURL;
   return (
     <div className="random-image-container">
       <div className="controls">
@@ -87,7 +87,7 @@ function RandomImage(props) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
-export default RandomImage
+export default RandomImage;

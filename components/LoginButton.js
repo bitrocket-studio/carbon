@@ -1,10 +1,12 @@
-import React from 'react'
-import Link from 'next/link'
-import firebase, { logout, loginGitHub } from '../lib/client'
+/** @format */
 
-import Button from './Button'
-import Popout, { managePopout } from './Popout'
-import { useAuth } from './AuthContext'
+import React from 'react';
+import Link from 'next/link';
+import firebase, { logout, loginGitHub } from '../lib/client';
+
+import Button from './Button';
+import Popout, { managePopout } from './Popout';
+import { useAuth } from './AuthContext';
 
 function Drawer(props) {
   return (
@@ -17,12 +19,7 @@ function Drawer(props) {
         </Link>
         <Link href="/account">
           <Button large center padding="0.5rem 0" style={{ borderBottom: '1px solid' }}>
-            <img
-              src="/static/svg/person.svg"
-              alt="Account"
-              width="16px"
-              style={{ left: '-2px', marginRight: 'calc(1rem - 3px)' }}
-            />{' '}
+            <img src="/static/svg/person.svg" alt="Account" width="16px" style={{ left: '-2px', marginRight: 'calc(1rem - 3px)' }} />{' '}
             Account
           </Button>
         </Link>
@@ -42,14 +39,14 @@ function Drawer(props) {
         `}
       </style>
     </Popout>
-  )
+  );
 }
 
 function LoginButton({ isVisible, toggleVisibility }) {
-  const user = useAuth()
+  const user = useAuth();
 
   if (!firebase) {
-    return null
+    return null;
   }
 
   return (
@@ -63,17 +60,13 @@ function LoginButton({ isVisible, toggleVisibility }) {
         className="profile-button"
         onClick={() => {
           if (!user) {
-            loginGitHub()
+            loginGitHub();
           } else {
-            toggleVisibility()
+            toggleVisibility();
           }
         }}
       >
-        <img
-          height={20}
-          src={user ? user.photoURL : '/static/svg/github.svg'}
-          alt={user ? user.displayName : 'GitHub'}
-        />
+        <img height={20} src={user ? user.photoURL : '/static/svg/github.svg'} alt={user ? user.displayName : 'GitHub'} />
         <span>{user ? user.displayName : 'Sign in/up'}</span>
       </Button>
       <Drawer isVisible={user && isVisible} />
@@ -100,7 +93,7 @@ function LoginButton({ isVisible, toggleVisibility }) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
-export default managePopout(LoginButton)
+export default managePopout(LoginButton);

@@ -1,17 +1,15 @@
-import React from 'react'
+/** @format */
 
-import Button from './Button'
-import { COLORS } from '../lib/constants'
-import * as Arrows from './svg/Arrows'
+import React from 'react';
+
+import Button from './Button';
+import { COLORS } from '../lib/constants';
+import * as Arrows from './svg/Arrows';
 
 const MenuButton = React.memo(({ name, select, selected, noArrows }) => {
   return (
     <div className="menu-button">
-      <Button
-        padding="8px"
-        onClick={select(name)}
-        background={selected === name ? COLORS.BLACK : COLORS.DARK_GRAY}
-      >
+      <Button padding="8px" onClick={select(name)} background={selected === name ? COLORS.BLACK : COLORS.DARK_GRAY}>
         {name}
         {!noArrows && (
           <div className="arrow-icon">
@@ -41,7 +39,7 @@ const MenuButton = React.memo(({ name, select, selected, noArrows }) => {
         `}
       </style>
     </div>
-  )
-})
+  );
+});
 
-export default MenuButton
+export default MenuButton;

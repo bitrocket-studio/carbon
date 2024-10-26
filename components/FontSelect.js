@@ -1,66 +1,52 @@
-import React from 'react'
-import ListSetting from './ListSetting'
-import ReferralLink from './ReferralLink'
-import { FONTS } from '../lib/constants'
-import { fileToDataURL as blobToUrl } from '../lib/util'
+/** @format */
 
-const EXTENSIONS = ['.otf', '.ttf', '.woff']
+import React from 'react';
+import ListSetting from './ListSetting';
+import ReferralLink from './ReferralLink';
+import { FONTS } from '../lib/constants';
+import { fileToDataURL as blobToUrl } from '../lib/util';
+
+const EXTENSIONS = ['.otf', '.ttf', '.woff'];
 
 const Font = ({ id, name, link }) => (
   <React.Fragment>
-    <span style={id === 'upload' ? { textAlign: 'center', width: '100%' } : { fontFamily: id }}>
-      {name}
-    </span>
+    <span style={id === 'upload' ? { textAlign: 'center', width: '100%' } : { fontFamily: id }}>{name}</span>
     {link && (
       <ReferralLink href={link}>
-        <span style={id === 'upload' ? { textAlign: 'center', width: '100%' } : { fontFamily: id }}>
-          Purchase
-        </span>
+        <span style={id === 'upload' ? { textAlign: 'center', width: '100%' } : { fontFamily: id }}>Purchase</span>
       </ReferralLink>
     )}
   </React.Fragment>
-)
+);
 
 function FontSelect(props) {
-  const inputEl = React.useRef(null)
+  const inputEl = React.useRef(null);
 
   function onChange(id) {
     if (id === 'upload') {
-      inputEl.current.click()
+      inputEl.current.click();
     } else {
-      props.onChange(id)
+      props.onChange(id);
     }
   }
 
   async function onFiles(e) {
-    const { files } = e.target
+    const { files } = e.target;
 
-    const name = files[0].name.split('.')[0]
-    const url = await blobToUrl(files[0])
+    const name = files[0].name.split('.')[0];
+    const url = await blobToUrl(files[0]);
 
-    props.onUpload(name, url)
+    props.onUpload(name, url);
   }
 
   return (
     <div>
-      <ListSetting
-        title="Font"
-        items={[{ id: 'upload', name: 'Upload +' }, ...FONTS]}
-        {...props}
-        onChange={onChange}
-      >
+      <ListSetting title="Font" items={[{ id: 'upload', name: 'Upload +' }, ...FONTS]} {...props} onChange={onChange}>
         {Font}
       </ListSetting>
-      <input
-        hidden
-        ref={inputEl}
-        type="file"
-        multiple
-        accept={EXTENSIONS.join(',')}
-        onChange={onFiles}
-      />
+      <input hidden ref={inputEl} type="file" multiple accept={EXTENSIONS.join(',')} onChange={onFiles} />
     </div>
-  )
+  );
 }
 
-export default FontSelect
+export default FontSelect;

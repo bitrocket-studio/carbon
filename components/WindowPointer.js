@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export default function WindowPointer({ fromLeft, fromRight, color = '#fff' }) {
   return (
@@ -20,5 +22,5 @@ export default function WindowPointer({ fromLeft, fromRight, color = '#fff' }) {
         `}
       </style>
     </div>
-  )
+  );
 }

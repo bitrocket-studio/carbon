@@ -1,7 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
+/** @format */
 
-import { COLORS } from '../lib/constants'
+import React from 'react';
+import Link from 'next/link';
+
+import { COLORS } from '../lib/constants';
 
 const Footer = () => (
   <footer role="contentinfo" className="mt3">
@@ -11,7 +13,7 @@ const Footer = () => (
           about
         </a>
       </Link>
-      <a className="link" href="https://github.com/carbon-app/carbon">
+      <a className="link" href="https://github.com/bitrocket-studio/carbon">
         source
       </a>
       <a className="link" href="/terms">
@@ -20,16 +22,16 @@ const Footer = () => (
       <a className="link" href="/privacy">
         privacy
       </a>
-      <a className="link" href="/offsets">
-        offsets
-      </a>
-      {/* <span className="new">New</span> */}
     </nav>
 
     <div className="mt2 mb2">
       created by{' '}
       <a className="author-link" href="https://twitter.com/carbon_app">
         @carbon_app
+      </a>
+      improved by{' '}
+      <a className="author-link" href="https://bitrocket.it" target="_blank" rel="noreferrer">
+        @bitrocket
       </a>{' '}
       ¬
     </div>
@@ -82,6 +84,6 @@ const Footer = () => (
       `}
     </style>
   </footer>
-)
+);
 
-export default Footer
+export default Footer;

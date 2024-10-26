@@ -1,5 +1,7 @@
+/** @format */
+
 // Theirs
-import React from 'react'
+import React from 'react';
 
 export default function GlobalHighlights({ highlights }) {
   return (
@@ -81,5 +83,5 @@ export default function GlobalHighlights({ highlights }) {
         }
       `}
     </style>
-  )
+  );
 }

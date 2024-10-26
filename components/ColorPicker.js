@@ -1,18 +1,20 @@
-import React from 'react'
-import SketchPicker from 'react-color/lib/Sketch'
+/** @format */
 
-import { COLORS } from '../lib/constants'
-import { stringifyColor } from '../lib/util'
+import React from 'react';
+import SketchPicker from 'react-color/lib/Sketch';
+
+import { COLORS } from '../lib/constants';
+import { stringifyColor } from '../lib/util';
 
 const pickerStyle = {
   backgroundColor: COLORS.BLACK,
   padding: '8px 8px 0',
   margin: '0 auto 1px',
-}
+};
 
 export default function ColorPicker(props) {
-  const [color, setColor] = React.useState(props.color)
-  const { onChange = () => {}, presets, style, disableAlpha } = props
+  const [color, setColor] = React.useState(props.color);
+  const { onChange = () => {}, presets, style, disableAlpha } = props;
 
   return (
     <React.Fragment>
@@ -36,10 +38,9 @@ export default function ColorPicker(props) {
             color: #fff !important;
           }
 
-          :global(.sketch-picker
+          :global(.sketch-picker > div:nth-child(2) > div:nth-child(1) > div:nth-child(2), .sketch-picker
               > div:nth-child(2)
-              > div:nth-child(1)
-              > div:nth-child(2), .sketch-picker > div:nth-child(2) > div:nth-child(2)) {
+              > div:nth-child(2)) {
             background: #fff;
           }
 
@@ -49,5 +50,5 @@ export default function ColorPicker(props) {
         `}
       </style>
     </React.Fragment>
-  )
+  );
 }

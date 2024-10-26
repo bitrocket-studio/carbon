@@ -1,17 +1,19 @@
-import React from 'react'
-import dynamic from 'next/dynamic'
+/** @format */
 
-import GlobalHighlights from './GlobalHighlights'
-import Dropdown from '../Dropdown'
-import { managePopout } from '../Popout'
-import ReferralLink from '../ReferralLink'
-import ThemeIcon from '../svg/Theme'
-import RemoveIcon from '../svg/Remove'
-import { COLORS } from '../../lib/constants'
+import React from 'react';
+import dynamic from 'next/dynamic';
+
+import GlobalHighlights from './GlobalHighlights';
+import Dropdown from '../Dropdown';
+import { managePopout } from '../Popout';
+import ReferralLink from '../ReferralLink';
+import ThemeIcon from '../svg/Theme';
+import RemoveIcon from '../svg/Remove';
+import { COLORS } from '../../lib/constants';
 
 const ThemeCreate = dynamic(() => import('./ThemeCreate'), {
   loading: () => null,
-})
+});
 
 const ThemeItem = ({ children, item, isSelected, remove }) => (
   <div className="theme-item">
@@ -27,8 +29,8 @@ const ThemeItem = ({ children, item, isSelected, remove }) => (
         tabIndex={0}
         className="icon"
         onClick={e => {
-          e.stopPropagation()
-          remove(item.id)
+          e.stopPropagation();
+          remove(item.id);
         }}
       >
         <RemoveIcon color={COLORS.SECONDARY} style={{ transform: 'scale(1.6)' }} />
@@ -50,54 +52,53 @@ const ThemeItem = ({ children, item, isSelected, remove }) => (
       `}
     </style>
   </div>
-)
+);
 
-const themeIcon = <ThemeIcon />
+const themeIcon = <ThemeIcon />;
 
-const getCustomName = themes =>
-  `Custom Theme ${themes.filter(({ name }) => name.startsWith('Custom Theme')).length + 1}`
+const getCustomName = themes => `Custom Theme ${themes.filter(({ name }) => name.startsWith('Custom Theme')).length + 1}`;
 
 class Themes extends React.PureComponent {
   state = {
     name: '',
-  }
+  };
 
-  dropdown = React.createRef()
+  dropdown = React.createRef();
 
   static getDerivedStateFromProps(props) {
     if (!props.isVisible) {
       return {
         name: getCustomName(props.themes),
-      }
+      };
     }
-    return null
+    return null;
   }
 
   handleThemeSelected = theme => {
     if (theme) {
-      const { toggleVisibility, update } = this.props
+      const { toggleVisibility, update } = this.props;
       if (theme.id === 'create') {
-        toggleVisibility()
-        this.dropdown.current.closeMenu()
+        toggleVisibility();
+        this.dropdown.current.closeMenu();
       } else {
-        update(theme.id)
+        update(theme.id);
       }
     }
-  }
+  };
 
   create = theme => {
-    this.props.toggleVisibility()
-    this.props.create(theme)
-  }
+    this.props.toggleVisibility();
+    this.props.create(theme);
+  };
 
-  itemWrapper = props => <ThemeItem {...props} remove={this.props.remove} />
+  itemWrapper = props => <ThemeItem {...props} remove={this.props.remove} />;
 
   render() {
-    const { themes, theme, isVisible, toggleVisibility } = this.props
+    const { themes, theme, isVisible, toggleVisibility } = this.props;
 
-    const highlights = { ...theme.highlights, ...this.props.highlights }
+    const highlights = { ...theme.highlights, ...this.props.highlights };
 
-    const dropdownValue = isVisible ? { name: this.state.name } : theme
+    const dropdownValue = isVisible ? { name: this.state.name } : theme;
 
     const dropdownList = [
       {
@@ -105,7 +106,7 @@ class Themes extends React.PureComponent {
         name: 'Create +',
       },
       ...themes,
-    ]
+    ];
 
     return (
       <div className="themes" data-cy="themes-container">
@@ -140,8 +141,8 @@ class Themes extends React.PureComponent {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-export default managePopout(Themes)
+export default managePopout(Themes);

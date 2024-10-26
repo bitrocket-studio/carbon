@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 const Overlay = props => (
   <div className="dnd-container">
@@ -26,6 +28,6 @@ const Overlay = props => (
       `}
     </style>
   </div>
-)
+);
 
-export default Overlay
+export default Overlay;

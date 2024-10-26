@@ -1,42 +1,35 @@
-import React from 'react'
+/** @format */
 
-import ImagePicker from './ImagePicker'
-import ColorPicker from './ColorPicker'
-import Button from './Button'
-import Popout, { managePopout } from './Popout'
-import { COLORS, DEFAULT_BG_COLOR } from '../lib/constants'
-import { stringifyColor } from '../lib/util'
+import React from 'react';
+
+import ImagePicker from './ImagePicker';
+import ColorPicker from './ColorPicker';
+import Button from './Button';
+import Popout, { managePopout } from './Popout';
+import { COLORS, DEFAULT_BG_COLOR } from '../lib/constants';
+import { stringifyColor } from '../lib/util';
 
 function validateColor(str) {
   if (/#\d{3,6}|rgba{0,1}\(.*?\)/gi.test(str) || /\w+/gi.test(str)) {
-    return str
+    return str;
   }
 }
 
 class BackgroundSelect extends React.PureComponent {
   selectTab = name => {
     if (this.props.mode !== name) {
-      this.props.onChange({ backgroundMode: name })
+      this.props.onChange({ backgroundMode: name });
     }
-  }
+  };
 
-  handlePickColor = color => this.props.onChange({ backgroundColor: stringifyColor(color) })
+  handlePickColor = color => this.props.onChange({ backgroundColor: stringifyColor(color) });
 
   render() {
-    const {
-      color,
-      mode,
-      image,
-      onChange,
-      isVisible,
-      toggleVisibility,
-      carbonRef,
-      updateHighlights,
-    } = this.props
+    const { color, mode, image, onChange, isVisible, toggleVisibility, carbonRef, updateHighlights } = this.props;
 
-    const background = validateColor(color) ? color : DEFAULT_BG_COLOR
+    const background = validateColor(color) ? color : DEFAULT_BG_COLOR;
 
-    const aspectRatio = carbonRef ? carbonRef.clientWidth / carbonRef.clientHeight : 1
+    const aspectRatio = carbonRef ? carbonRef.clientWidth / carbonRef.clientHeight : 1;
 
     return (
       <div className="bg-select-container">
@@ -55,12 +48,7 @@ class BackgroundSelect extends React.PureComponent {
           <div className="bg-color" />
         </Button>
 
-        <Popout
-          id="bg-select-pickers"
-          pointerLeft="15px"
-          hidden={!isVisible}
-          style={{ width: '222px' }}
-        >
+        <Popout id="bg-select-pickers" pointerLeft="15px" hidden={!isVisible} style={{ width: '222px' }}>
           <div className="picker-tabs">
             {['color', 'image'].map(tab => (
               <Button
@@ -80,12 +68,7 @@ class BackgroundSelect extends React.PureComponent {
               <ColorPicker color={color} onChange={this.handlePickColor} />
             </div>
             <div hidden={mode !== 'image'}>
-              <ImagePicker
-                onChange={onChange}
-                imageDataURL={image}
-                aspectRatio={aspectRatio}
-                updateHighlights={updateHighlights}
-              />
+              <ImagePicker onChange={onChange} imageDataURL={image} aspectRatio={aspectRatio} updateHighlights={updateHighlights} />
             </div>
           </div>
         </Popout>
@@ -145,8 +128,8 @@ class BackgroundSelect extends React.PureComponent {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-export default managePopout(BackgroundSelect)
+export default managePopout(BackgroundSelect);

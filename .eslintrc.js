@@ -1,3 +1,5 @@
+/** @format */
+
 module.exports = {
   env: { es6: true, jest: true },
   extends: ['eslint:recommended', 'plugin:jsx-a11y/recommended', 'next'],
@@ -17,4 +19,4 @@ module.exports = {
     '@next/next/no-html-link-for-pages': 'off',
     '@next/next/link-passhref': 'off',
   },
-}
+};

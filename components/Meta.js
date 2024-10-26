@@ -1,17 +1,17 @@
-import React from 'react'
-import Head from 'next/head'
-import { THEMES, THEMES_HASH, COLORS } from '../lib/constants'
-import Reset from './style/Reset'
-import Font from './style/Font'
-import Typography from './style/Typography'
+/** @format */
 
-const CODEMIRROR_VERSION = '5.65.5'
+import React from 'react';
+import Head from 'next/head';
+import { THEMES, THEMES_HASH, COLORS } from '../lib/constants';
+import Reset from './style/Reset';
+import Font from './style/Font';
+import Typography from './style/Typography';
 
-export const HIGHLIGHTS_ONLY = ['shades-of-purple', 'vscode', 'a11y-dark']
-const LOCAL_STYLESHEETS = ['one-light', 'one-dark', 'verminal', 'night-owl', 'nord', 'synthwave-84']
-const CDN_STYLESHEETS = THEMES.filter(
-  t => LOCAL_STYLESHEETS.indexOf(t.id) < 0 && HIGHLIGHTS_ONLY.indexOf(t.id) < 0
-)
+const CODEMIRROR_VERSION = '5.65.5';
+
+export const HIGHLIGHTS_ONLY = ['shades-of-purple', 'vscode', 'a11y-dark'];
+const LOCAL_STYLESHEETS = ['one-light', 'one-dark', 'verminal', 'night-owl', 'nord', 'synthwave-84'];
+const CDN_STYLESHEETS = THEMES.filter(t => LOCAL_STYLESHEETS.indexOf(t.id) < 0 && HIGHLIGHTS_ONLY.indexOf(t.id) < 0);
 
 export function Link({ href }) {
   return (
@@ -19,32 +19,25 @@ export function Link({ href }) {
       <link rel="preload" as="style" href={href} />
       <link rel="stylesheet" href={href} />
     </Head>
-  )
+  );
 }
 
 export const StylesheetLink = ({ theme }) => {
-  let href
+  let href;
   if (LOCAL_STYLESHEETS.indexOf(theme) > -1) {
-    href = `/static/themes/${theme}.min.css`
+    href = `/static/themes/${theme}.min.css`;
   } else {
-    const themeDef = THEMES_HASH[theme]
-    href = `//cdnjs.cloudflare.com/ajax/libs/codemirror/${CODEMIRROR_VERSION}/theme/${
-      themeDef && (themeDef.link || themeDef.id)
-    }.min.css`
+    const themeDef = THEMES_HASH[theme];
+    href = `//cdnjs.cloudflare.com/ajax/libs/codemirror/${CODEMIRROR_VERSION}/theme/${themeDef && (themeDef.link || themeDef.id)}.min.css`;
   }
 
-  return <Link href={href} />
-}
+  return <Link href={href} />;
+};
 
-export const CodeMirrorLink = () => (
-  <Link
-    href={`//cdnjs.cloudflare.com/ajax/libs/codemirror/${CODEMIRROR_VERSION}/codemirror.min.css`}
-  />
-)
+export const CodeMirrorLink = () => <Link href={`//cdnjs.cloudflare.com/ajax/libs/codemirror/${CODEMIRROR_VERSION}/codemirror.min.css`} />;
 
-const title = 'Carbon'
-const description =
-  'Carbon is the easiest way to create and share beautiful images of your source code.'
+const title = 'Carbon';
+const description = 'Carbon is the easiest way to create and share beautiful images of your source code.';
 export const MetaTags = React.memo(() => (
   <Head>
     <meta charSet="utf-8" />
@@ -66,14 +59,12 @@ export const MetaTags = React.memo(() => (
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="/static/brand/apple-touch-icon.png" />
   </Head>
-))
+));
 
 export const MetaLinks = React.memo(() => {
   return (
     <React.Fragment>
-      <Link
-        href={`//cdnjs.cloudflare.com/ajax/libs/codemirror/${CODEMIRROR_VERSION}/theme/seti.min.css`}
-      />
+      <Link href={`//cdnjs.cloudflare.com/ajax/libs/codemirror/${CODEMIRROR_VERSION}/theme/seti.min.css`} />
       <CodeMirrorLink />
       {LOCAL_STYLESHEETS.map(id => (
         <Link key={id} href={`/static/themes/${id}.min.css`} />
@@ -81,12 +72,12 @@ export const MetaLinks = React.memo(() => {
       {CDN_STYLESHEETS.map(themeDef => {
         const href = `//cdnjs.cloudflare.com/ajax/libs/codemirror/${CODEMIRROR_VERSION}/theme/${
           themeDef && (themeDef.link || themeDef.id)
-        }.min.css`
-        return <Link key={themeDef.id} href={href} />
+        }.min.css`;
+        return <Link key={themeDef.id} href={href} />;
       })}
     </React.Fragment>
-  )
-})
+  );
+});
 
 export default React.memo(function Meta() {
   return (
@@ -96,5 +87,5 @@ export default React.memo(function Meta() {
       <Font />
       <Typography />
     </React.Fragment>
-  )
-})
+  );
+});

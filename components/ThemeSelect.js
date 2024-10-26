@@ -1,21 +1,23 @@
-import React from 'react'
-import Toggle from './Toggle'
-import { None, BW, Sharp, Boxy } from './svg/WindowThemes'
-import { COLORS } from '../lib/constants'
+/** @format */
 
-const WINDOW_THEMES_MAP = { none: None, sharp: Sharp, bw: BW, boxy: Boxy }
+import React from 'react';
+import Toggle from './Toggle';
+import { None, BW, Sharp, Boxy } from './svg/WindowThemes';
+import { COLORS } from '../lib/constants';
+
+const WINDOW_THEMES_MAP = { none: None, sharp: Sharp, bw: BW, boxy: Boxy };
 
 class ThemeSelect extends React.Component {
   select = theme => {
     if (this.props.selected !== theme) {
-      this.props.onChange('windowTheme', theme)
+      this.props.onChange('windowTheme', theme);
     }
-  }
+  };
 
   renderThemes() {
     return Object.keys(WINDOW_THEMES_MAP).map(theme => {
-      const Img = WINDOW_THEMES_MAP[theme]
-      const checked = this.props.selected === theme
+      const Img = WINDOW_THEMES_MAP[theme];
+      const checked = this.props.selected === theme;
       return (
         <div
           key={theme}
@@ -49,19 +51,15 @@ class ThemeSelect extends React.Component {
             `}
           </style>
         </div>
-      )
-    })
+      );
+    });
   }
 
   render() {
     return (
       <>
         <div className="window-theme">
-          <Toggle
-            label="Window controls"
-            enabled={this.props.windowControls}
-            onChange={v => this.props.onChange('windowControls', v)}
-          />
+          <Toggle label="Window controls" enabled={this.props.windowControls} onChange={v => this.props.onChange('windowControls', v)} />
           {this.props.windowControls && (
             <div className="themes" role="radiogroup" aria-labelledby="window-theme-label">
               {this.renderThemes()}
@@ -86,8 +84,8 @@ class ThemeSelect extends React.Component {
           </style>
         </div>
       </>
-    )
+    );
   }
 }
 
-export default ThemeSelect
+export default ThemeSelect;

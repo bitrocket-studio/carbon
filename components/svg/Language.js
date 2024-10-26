@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export default function Language() {
   return (
@@ -8,5 +10,5 @@ export default function Language() {
         fill="white"
       />
     </svg>
-  )
+  );
 }

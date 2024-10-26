@@ -1,36 +1,38 @@
-import React from 'react'
-import Router from 'next/router'
+/** @format */
 
-import IndexPage from './index'
+import React from 'react';
+import Router from 'next/router';
 
-import api from '../lib/api'
+import IndexPage from './index';
+
+import api from '../lib/api';
 
 export async function getServerSideProps({ req, res, query }) {
-  const { id: path, filename } = query
-  const parameter = path.length >= 19 && path.indexOf('.') < 0 ? path : null
+  const { id: path, filename } = query;
+  const parameter = path.length >= 19 && path.indexOf('.') < 0 ? path : null;
 
-  let snippet
+  let snippet;
   if (parameter) {
-    const host = req ? req.headers.host : undefined
-    snippet = await api.snippet.get(parameter, { host, filename })
+    const host = req ? req.headers.host : undefined;
+    snippet = await api.snippet.get(parameter, { host, filename });
     if (snippet) {
-      return { props: { snippet, host } }
+      return { props: { snippet, host } };
     }
 
     // 404 Not found
     if (res) {
       res.writeHead(302, {
         Location: '/',
-      })
-      res.end()
+      });
+      res.end();
     } else {
-      Router.push('/')
+      Router.push('/');
     }
   }
 
-  return { props: {} }
+  return { props: {} };
 }
 
 export default React.memo(function IdPage(props) {
-  return <IndexPage {...props} />
-})
+  return <IndexPage {...props} />;
+});

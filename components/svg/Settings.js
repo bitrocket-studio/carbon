@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export default function Settings() {
   return (
@@ -10,5 +12,5 @@ export default function Settings() {
         transform="translate(-191 -357)"
       />
     </svg>
-  )
+  );
 }

@@ -1,17 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import dynamic from 'next/dynamic'
-import hljs from 'highlight.js/lib/core'
-import javascript from 'highlight.js/lib/languages/javascript'
-import debounce from 'lodash.debounce'
-import ms from 'ms'
-import { Controlled as CodeMirror } from 'react-codemirror2'
+/** @format */
 
-hljs.registerLanguage('javascript', javascript)
+import React from 'react';
+import ReactDOM from 'react-dom';
+import dynamic from 'next/dynamic';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import debounce from 'lodash.debounce';
+import ms from 'ms';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 
-import { Spinner } from './Spinner'
-import WindowControls from './WindowControls'
-import WidthHandler from './WidthHandler'
+hljs.registerLanguage('javascript', javascript);
+
+import { Spinner } from './Spinner';
+import WindowControls from './WindowControls';
+import WidthHandler from './WidthHandler';
 
 import {
   COLORS,
@@ -21,108 +23,105 @@ import {
   LANGUAGE_MIME_HASH,
   DEFAULT_SETTINGS,
   THEMES_HASH,
-} from '../lib/constants'
+} from '../lib/constants';
 
 const SelectionEditor = dynamic(() => import('./SelectionEditor'), {
   loading: () => null,
-})
+});
 const Watermark = dynamic(() => import('./svg/Watermark'), {
   loading: () => null,
-})
+});
 
 function searchLanguage(l) {
-  return LANGUAGE_NAME_HASH[l] || LANGUAGE_MODE_HASH[l] || LANGUAGE_MIME_HASH[l]
+  return LANGUAGE_NAME_HASH[l] || LANGUAGE_MODE_HASH[l] || LANGUAGE_MIME_HASH[l];
 }
 
 function noop() {}
 function getUnderline(underline) {
   switch (underline) {
     case 1:
-      return 'underline'
+      return 'underline';
     case 2:
       /**
        * Chrome will only round to the nearest wave, causing visual inconsistencies
        * https://stackoverflow.com/questions/57559588/how-to-make-the-wavy-underline-extend-cover-all-the-characters-in-chrome
        */
-      return `${COLORS.RED} wavy underline; text-decoration-skip-ink: none`
+      return `${COLORS.RED} wavy underline; text-decoration-skip-ink: none`;
   }
-  return 'initial'
+  return 'initial';
 }
 
 class Carbon extends React.PureComponent {
   static defaultProps = {
     onChange: noop,
     onGutterClick: noop,
-  }
-  state = {}
+  };
+  state = {};
 
   handleLanguageChange = debounce(
     (newCode, language) => {
       if (language === 'auto') {
         // try to set the language
-        const detectedLanguage = hljs.highlightAuto(newCode).language
-        const languageMode = searchLanguage(detectedLanguage)
+        const detectedLanguage = hljs.highlightAuto(newCode).language;
+        const languageMode = searchLanguage(detectedLanguage);
 
         if (languageMode) {
-          return languageMode.mime || languageMode.mode
+          return languageMode.mime || languageMode.mode;
         }
       }
 
-      const languageMode = searchLanguage(language)
+      const languageMode = searchLanguage(language);
 
       if (languageMode) {
-        return languageMode.mime || languageMode.mode
+        return languageMode.mime || languageMode.mode;
       }
 
-      return language
+      return language;
     },
     ms('300ms'),
     {
       leading: true,
       trailing: true,
-    }
-  )
+    },
+  );
 
   onBeforeChange = (editor, meta, code) => {
     if (!this.props.readOnly) {
-      this.props.onChange(code)
+      this.props.onChange(code);
     }
-  }
+  };
 
   onSelection = (ed, data) => {
     if (this.props.readOnly) {
-      return
+      return;
     }
 
-    const selection = data.ranges[0]
-    if (
-      selection.head.line === selection.anchor.line &&
-      selection.head.ch === selection.anchor.ch
-    ) {
-      return (this.currentSelection = null)
+    const selection = data.ranges[0];
+    if (selection.head.line === selection.anchor.line && selection.head.ch === selection.anchor.ch) {
+      return (this.currentSelection = null);
     }
     if (selection.head.line + selection.head.ch > selection.anchor.line + selection.anchor.ch) {
       this.currentSelection = {
         from: selection.anchor,
         to: selection.head,
-      }
+      };
     } else {
       this.currentSelection = {
         from: selection.head,
         to: selection.anchor,
-      }
+      };
     }
-  }
+  };
 
   onMouseUp = () => {
     if (this.currentSelection) {
       this.setState({ selectionAt: this.currentSelection }, () => {
-        this.currentSelection = null
-      })
+        this.currentSelection = null;
+      });
     } else {
-      this.setState({ selectionAt: null })
+      this.setState({ selectionAt: null });
     }
-  }
+  };
 
   onSelectionChange = changes => {
     if (this.state.selectionAt) {
@@ -133,25 +132,18 @@ class Carbon extends React.PureComponent {
         changes.color != null && `color: ${changes.color} !important`,
       ]
         .filter(Boolean)
-        .join('; ')
+        .join('; ');
 
       if (css) {
-        this.props.editorRef.current.editor.doc.markText(
-          this.state.selectionAt.from,
-          this.state.selectionAt.to,
-          { css }
-        )
+        this.props.editorRef.current.editor.doc.markText(this.state.selectionAt.from, this.state.selectionAt.to, { css });
       }
     }
-  }
+  };
 
   render() {
-    const config = { ...DEFAULT_SETTINGS, ...this.props.config }
+    const config = { ...DEFAULT_SETTINGS, ...this.props.config };
 
-    const languageMode = this.handleLanguageChange(
-      this.props.children,
-      config.language && config.language.toLowerCase()
-    )
+    const languageMode = this.handleLanguageChange(this.props.children, config.language && config.language.toLowerCase());
 
     const options = {
       screenReaderLabel: 'Code editor',
@@ -169,29 +161,20 @@ class Carbon extends React.PureComponent {
       readOnly: this.props.readOnly,
       showInvisibles: config.hiddenCharacters,
       autoCloseBrackets: true,
-    }
+    };
     const backgroundImage =
-      (this.props.config.backgroundImage && this.props.config.backgroundImageSelection) ||
-      this.props.config.backgroundImage
+      (this.props.config.backgroundImage && this.props.config.backgroundImageSelection) || this.props.config.backgroundImage;
 
-    const themeConfig = this.props.theme || THEMES_HASH[config.theme]
+    const themeConfig = this.props.theme || THEMES_HASH[config.theme];
 
-    const light = themeConfig && themeConfig.light
+    const light = themeConfig && themeConfig.light;
 
     /* eslint-disable jsx-a11y/no-static-element-interactions */
-    const selectionNode =
-      !this.props.readOnly &&
-      !!this.state.selectionAt &&
-      document.getElementById('style-editor-button')
+    const selectionNode = !this.props.readOnly && !!this.state.selectionAt && document.getElementById('style-editor-button');
 
     return (
       <div className="section">
-        <div
-          ref={this.props.innerRef}
-          id="export-container"
-          className="export-container"
-          onMouseUp={this.onMouseUp}
-        >
+        <div ref={this.props.innerRef} id="export-container" className="export-container" onMouseUp={this.onMouseUp}>
           {this.props.loading ? (
             // TODO investigate removing these hard-coded values
             <div style={{ width: 876, height: 240 }}>
@@ -240,7 +223,7 @@ class Carbon extends React.PureComponent {
           ReactDOM.createPortal(
             <SelectionEditor onChange={this.onSelectionChange} />,
             // TODO: don't use portal?
-            selectionNode
+            selectionNode,
           )}
         <style jsx>
           {`
@@ -311,9 +294,7 @@ class Carbon extends React.PureComponent {
               position: relative;
               z-index: 1;
               border-radius: 5px;
-              ${config.dropShadow
-                ? `box-shadow: 0 ${config.dropShadowOffsetY} ${config.dropShadowBlurRadius} rgba(0, 0, 0, 0.55)`
-                : ''};
+              ${config.dropShadow ? `box-shadow: 0 ${config.dropShadowOffsetY} ${config.dropShadowBlurRadius} rgba(0, 0, 0, 0.55)` : ''};
             }
 
             .container :global(.CodeMirror__container .CodeMirror) {
@@ -378,71 +359,64 @@ class Carbon extends React.PureComponent {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-let modesLoaded = false
+let modesLoaded = false;
 function useModeLoader() {
   React.useEffect(() => {
     if (!modesLoaded) {
       // Load Codemirror add-ons
-      require('../lib/custom/autoCloseBrackets')
+      require('../lib/custom/autoCloseBrackets');
       // Load Codemirror modes
-      LANGUAGES.filter(
-        language => language.mode && language.mode !== 'auto' && language.mode !== 'text'
-      ).forEach(language => {
-        language.custom
-          ? require(`../lib/custom/modes/${language.mode}`)
-          : require(`codemirror/mode/${language.mode}/${language.mode}`)
-      })
-      modesLoaded = true
+      LANGUAGES.filter(language => language.mode && language.mode !== 'auto' && language.mode !== 'text').forEach(language => {
+        language.custom ? require(`../lib/custom/modes/${language.mode}`) : require(`codemirror/mode/${language.mode}/${language.mode}`);
+      });
+      modesLoaded = true;
     }
-  }, [])
+  }, []);
 }
 
-let highLightsLoaded = false
+let highLightsLoaded = false;
 function useHighlightLoader() {
   React.useEffect(() => {
     if (!highLightsLoaded) {
       import('../lib/highlight-languages')
         .then(res => res.default.map(config => hljs.registerLanguage(config[0], config[1])))
         .then(() => {
-          highLightsLoaded = true
-        })
+          highLightsLoaded = true;
+        });
     }
-  }, [])
+  }, []);
 }
 
-function selectedLinesReducer(
-  { prevLine, selected },
-  { type, lineNumber, numLines, selectedLines }
-) {
-  const newState = {}
+function selectedLinesReducer({ prevLine, selected }, { type, lineNumber, numLines, selectedLines }) {
+  const newState = {};
 
   switch (type) {
     case 'GROUP': {
       if (prevLine) {
         for (let i = Math.min(prevLine, lineNumber); i < Math.max(prevLine, lineNumber) + 1; i++) {
-          newState[i] = selected[prevLine]
+          newState[i] = selected[prevLine];
         }
       }
-      break
+      break;
     }
     case 'MULTILINE': {
       for (let i = 0; i < selectedLines.length; i++) {
-        newState[selectedLines[i] - 1] = true
+        newState[selectedLines[i] - 1] = true;
       }
-      break
+      break;
     }
     default: {
       for (let i = 0; i < numLines; i++) {
         if (i != lineNumber) {
           if (prevLine == null) {
-            newState[i] = false
+            newState[i] = false;
           }
         } else {
-          newState[lineNumber] = selected[lineNumber] === true ? false : true
+          newState[lineNumber] = selected[lineNumber] === true ? false : true;
         }
       }
     }
@@ -451,56 +425,56 @@ function selectedLinesReducer(
   return {
     selected: { ...selected, ...newState },
     prevLine: lineNumber,
-  }
+  };
 }
 
 function useSelectedLines(props, editorRef) {
   const [state, dispatch] = React.useReducer(selectedLinesReducer, {
     prevLine: null,
     selected: {},
-  })
+  });
 
   React.useEffect(() => {
     if (editorRef.current && Object.keys(state.selected).length > 0) {
       editorRef.current.editor.display.view.forEach((line, i) => {
         if (line.text) {
-          line.text.style.opacity = state.selected[i] === true ? 1 : 0.5
+          line.text.style.opacity = state.selected[i] === true ? 1 : 0.5;
         }
         if (line.gutter) {
-          line.gutter.style.opacity = state.selected[i] === true ? 1 : 0.5
+          line.gutter.style.opacity = state.selected[i] === true ? 1 : 0.5;
         }
-      })
+      });
     }
-  }, [state.selected, props.children, props.config, editorRef])
+  }, [state.selected, props.children, props.config, editorRef]);
 
   React.useEffect(() => {
     if (props.config.selectedLines) {
       dispatch({
         type: 'MULTILINE',
         selectedLines: props.config.selectedLines,
-      })
+      });
     }
-  }, [props.config.selectedLines])
+  }, [props.config.selectedLines]);
 
   return React.useCallback(function onGutterClick(editor, lineNumber, gutter, e) {
-    const numLines = editor.display.view.length
-    const type = e.shiftKey ? 'GROUP' : 'LINE'
-    dispatch({ type, lineNumber, numLines })
-  }, [])
+    const numLines = editor.display.view.length;
+    const type = e.shiftKey ? 'GROUP' : 'LINE';
+    dispatch({ type, lineNumber, numLines });
+  }, []);
 }
 
 function useShowInvisiblesLoader() {
-  React.useEffect(() => void require('cm-show-invisibles'), [])
+  React.useEffect(() => void require('cm-show-invisibles'), []);
 }
 
 function CarbonContainer(props, ref) {
-  useModeLoader()
-  useHighlightLoader()
-  useShowInvisiblesLoader()
-  const editorRef = React.createRef()
-  const onGutterClick = useSelectedLines(props, editorRef)
+  useModeLoader();
+  useHighlightLoader();
+  useShowInvisiblesLoader();
+  const editorRef = React.createRef();
+  const onGutterClick = useSelectedLines(props, editorRef);
 
-  return <Carbon {...props} innerRef={ref} editorRef={editorRef} onGutterClick={onGutterClick} />
+  return <Carbon {...props} innerRef={ref} editorRef={editorRef} onGutterClick={onGutterClick} />;
 }
 
-export default React.forwardRef(CarbonContainer)
+export default React.forwardRef(CarbonContainer);

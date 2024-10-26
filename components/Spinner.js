@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export function Spinner({ size = 24 }) {
   return (
@@ -45,5 +47,5 @@ export function Spinner({ size = 24 }) {
         `}
       </style>
     </div>
-  )
+  );
 }

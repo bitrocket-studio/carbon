@@ -1,31 +1,31 @@
-import React from 'react'
+/** @format */
 
-import { COLORS } from '../lib/constants'
+import React from 'react';
+
+import { COLORS } from '../lib/constants';
 
 class Slider extends React.Component {
   static defaultProps = {
     onMouseDown: () => {},
     onMouseUp: () => {},
     unit: 'px',
-  }
+  };
 
   handleChange = e => {
-    this.props.onChange(`${e.target.value}${this.props.unit}`)
-  }
+    this.props.onChange(`${e.target.value}${this.props.unit}`);
+  };
 
   render() {
-    const minValue = this.props.minValue || 0
-    const maxValue = this.props.maxValue || 100
-    const step = 'step' in this.props ? this.props.step : 1
+    const minValue = this.props.minValue || 0;
+    const maxValue = this.props.maxValue || 100;
+    const step = 'step' in this.props ? this.props.step : 1;
 
     return (
       <div className="slider settings-row">
         <div
           className="slider-bg"
           style={{
-            transform: `translate3d(${
-              (((parseFloat(this.props.value) - minValue) * 1.0) / (maxValue - minValue)) * 100
-            }%, 0px, 0px)`,
+            transform: `translate3d(${(((parseFloat(this.props.value) - minValue) * 1.0) / (maxValue - minValue)) * 100}%, 0px, 0px)`,
           }}
         />
         <label>{this.props.label}</label>
@@ -80,8 +80,8 @@ class Slider extends React.Component {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-export default Slider
+export default Slider;

@@ -1,16 +1,16 @@
-import React from 'react'
-import Page from '../components/Page'
+/** @format */
+
+import React from 'react';
+import Page from '../components/Page';
 
 function Contributors() {
-  const [contributors, setContributors] = React.useState([])
+  const [contributors, setContributors] = React.useState([]);
 
   React.useEffect(() => {
     fetch('https://api.github.com/repos/carbon-app/carbon/contributors?per_page=100')
       .then(response => response.json())
-      .then(contributors =>
-        setContributors(contributors.filter(contributor => !contributor.login.endsWith('[bot]')))
-      )
-  }, [])
+      .then(contributors => setContributors(contributors.filter(contributor => !contributor.login.endsWith('[bot]'))));
+  }, []);
 
   return (
     <div>
@@ -37,7 +37,7 @@ function Contributors() {
         `}
       </style>
     </div>
-  )
+  );
 }
 
 export default function About() {
@@ -48,10 +48,9 @@ export default function About() {
           <h2>What does this do?</h2>
           <p>Carbon lets you create and share beautiful images of your source code</p>
           <p>
-            You know all of those code screenshots you see on Twitter? Although the code&apos;s
-            usually impressive, we thought there was room for improvement in the aesthetic
-            department. So what are you waiting for? Go try it out and impress all your developer
-            and designer friends.{' '}
+            You know all of those code screenshots you see on Twitter? Although the code&apos;s usually impressive, we thought there was
+            room for improvement in the aesthetic department. So what are you waiting for? Go try it out and impress all your developer and
+            designer friends.{' '}
             <span role="img" aria-label="Palette">
               🎨
             </span>
@@ -86,37 +85,24 @@ export default function About() {
           </ul>
           <h4 className="mb0 mt4">Customization</h4>
           <p className="mt2 mb3">
-            Once you&apos;ve got all of your code into Carbon, you can customize your image by
-            changing the syntax theme, background color/image, window theme, or padding.
+            Once you&apos;ve got all of your code into Carbon, you can customize your image by changing the syntax theme, background
+            color/image, window theme, or padding.
           </p>
-          <p className="mt2 mb3">
-            You can even drop an image file onto the editor to set the background to that image.
-            Give it a try!
-          </p>
+          <p className="mt2 mb3">You can even drop an image file onto the editor to set the background to that image. Give it a try!</p>
           <h4 className="mb0 mt4">Export/Sharing</h4>
+          <p className="mt2 mb3">After you&apos;ve customized your image you can Tweet a link to the image, or save it directly.</p>
           <p className="mt2 mb3">
-            After you&apos;ve customized your image you can Tweet a link to the image, or save it
-            directly.
-          </p>
-          <p className="mt2 mb3">
-            If you use the &apos;Tweet&apos; button, Carbon will automatically make your image
-            accessible. However, if you want to manually tweet your Carbon image, please check out (
-            <a
-              className="link"
-              href="https://help.twitter.com/en/using-twitter/picture-descriptions"
-            >
+            If you use the &apos;Tweet&apos; button, Carbon will automatically make your image accessible. However, if you want to manually
+            tweet your Carbon image, please check out (
+            <a className="link" href="https://help.twitter.com/en/using-twitter/picture-descriptions">
               how to make your Twitter images accessible
             </a>
             ).
           </p>
           <p className="mt2 mb3">
-            If you include a Carbon image in a post, the source code will be invisible to assistive
-            technology — it will not be possible to enlarge or copy it, etc. Please, think about
-            adding another element with the source code as text, like (
-            <a
-              className="link"
-              href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details"
-            >
+            If you include a Carbon image in a post, the source code will be invisible to assistive technology — it will not be possible to
+            enlarge or copy it, etc. Please, think about adding another element with the source code as text, like (
+            <a className="link" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details">
               an HTML Details Element
             </a>
             ) below the image.
@@ -227,5 +213,5 @@ export default function About() {
         `}
       </style>
     </Page>
-  )
+  );
 }

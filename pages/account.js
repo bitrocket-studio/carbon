@@ -1,41 +1,43 @@
+/** @format */
+
 // Theirs
-import React from 'react'
-import dynamic from 'next/dynamic'
+import React from 'react';
+import dynamic from 'next/dynamic';
 
 // Ours
-import Button from '../components/Button'
-import Page from '../components/Page'
-import MenuButton from '../components/MenuButton'
-import { useAuth } from '../components/AuthContext'
+import Button from '../components/Button';
+import Page from '../components/Page';
+import MenuButton from '../components/MenuButton';
+import { useAuth } from '../components/AuthContext';
 
-import { loginGitHub, logout } from '../lib/client'
-import { COLORS } from '../lib/constants'
+import { loginGitHub, logout } from '../lib/client';
+import { COLORS } from '../lib/constants';
 
 const Billing = dynamic(() => import('../components/Billing'), {
   loading: () => <div style={{ minHeight: '360px' }} />,
-})
+});
 
 function logoutThunk() {
-  return logout
+  return logout;
 }
 
-const soon = <span title="Coming Soon">ⓘ</span>
+const soon = <span title="Coming Soon">ⓘ</span>;
 
 function Plan({ selectBilling }) {
-  const user = useAuth()
+  const user = useAuth();
 
   function handleSelectFree() {
     if (!user) {
-      loginGitHub()
+      loginGitHub();
     }
   }
 
   function handleSelectUpgrade() {
     if (!user) {
-      return loginGitHub()
+      return loginGitHub();
     }
 
-    selectBilling()
+    selectBilling();
   }
 
   return (
@@ -171,15 +173,15 @@ function Plan({ selectBilling }) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
 function Settings() {
-  const [selected, select] = React.useState('Plan')
-  const user = useAuth()
+  const [selected, select] = React.useState('Plan');
+  const user = useAuth();
 
   function selectMenu(name) {
-    return () => select(name)
+    return () => select(name);
   }
   return (
     <div className="editor">
@@ -242,7 +244,7 @@ function Settings() {
         `}
       </style>
     </div>
-  )
+  );
 }
 
 function SettingsPage() {
@@ -250,7 +252,7 @@ function SettingsPage() {
     <Page flex={true}>
       <Settings />
     </Page>
-  )
+  );
 }
 
-export default SettingsPage
+export default SettingsPage;

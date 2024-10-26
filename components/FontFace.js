@@ -1,4 +1,6 @@
-import React from 'react'
+/** @format */
+
+import React from 'react';
 
 export default function FontFace(config) {
   return (
@@ -11,5 +13,5 @@ export default function FontFace(config) {
         }
       `}
     </style>
-  )
+  );
 }

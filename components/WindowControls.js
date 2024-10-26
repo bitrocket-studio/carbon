@@ -1,23 +1,21 @@
-import React from 'react'
-import { useCopyTextHandler } from 'actionsack'
+/** @format */
 
-import { COLORS } from '../lib/constants'
-import { Controls, ControlsBW, ControlsBoxy } from './svg/Controls'
-import CopySVG from './svg/Copy'
-import CheckMark from './svg/Checkmark'
+import React from 'react';
+import { useCopyTextHandler } from 'actionsack';
 
-const size = 24
+import { COLORS } from '../lib/constants';
+import { Controls, ControlsBW, ControlsBoxy } from './svg/Controls';
+import CopySVG from './svg/Copy';
+import CheckMark from './svg/Checkmark';
+
+const size = 24;
 
 const CopyButton = React.memo(function CopyButton({ text }) {
-  const { onClick, copied } = useCopyTextHandler(text)
+  const { onClick, copied } = useCopyTextHandler(text);
 
   return (
     <button onClick={onClick} aria-label="Copy Button">
-      {copied ? (
-        <CheckMark color={COLORS.GRAY} width={size} height={size} />
-      ) : (
-        <CopySVG size={size} color={COLORS.GRAY} />
-      )}
+      {copied ? <CheckMark color={COLORS.GRAY} width={size} height={size} /> : <CopySVG size={size} color={COLORS.GRAY} />}
       <style jsx>
         {`
           button {
@@ -33,21 +31,15 @@ const CopyButton = React.memo(function CopyButton({ text }) {
         `}
       </style>
     </button>
-  )
-})
+  );
+});
 
-const WINDOW_THEMES_MAP = { bw: <ControlsBW />, boxy: <ControlsBoxy /> }
+const WINDOW_THEMES_MAP = { bw: <ControlsBW />, boxy: <ControlsBoxy /> };
 
 export function TitleBar({ light, value, onChange }) {
   return (
     <div>
-      <input
-        aria-label="Image title"
-        type="text"
-        spellCheck="false"
-        value={value || ''}
-        onChange={e => onChange(e.target.value)}
-      />
+      <input aria-label="Image title" type="text" spellCheck="false" value={value || ''} onChange={e => onChange(e.target.value)} />
       <style jsx>
         {`
           div {
@@ -76,17 +68,10 @@ export function TitleBar({ light, value, onChange }) {
         `}
       </style>
     </div>
-  )
+  );
 }
 
-export default function WindowControls({
-  theme,
-  copyable,
-  code,
-  light,
-  titleBar,
-  onTitleBarChange,
-}) {
+export default function WindowControls({ theme, copyable, code, light, titleBar, onTitleBarChange }) {
   return (
     <div className="window-controls">
       {WINDOW_THEMES_MAP[theme] || <Controls />}
@@ -117,5 +102,5 @@ export default function WindowControls({
         `}
       </style>
     </div>
-  )
+  );
 }

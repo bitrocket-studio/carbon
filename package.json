@@ -1,16 +1,9 @@
 {
-  "name": "carbon",
+  "name": "bitrocket-carbon",
   "description": "Create and share beautiful images of your source code",
   "version": "4.9.10",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/carbon-app/carbon.git"
-  },
-  "bugs": {
-    "url": "https://github.com/carbon-app/carbon/issues"
-  },
-  "homepage": "https://carbon.now.sh",
+  "homepage": "https://carbon.bitrocket.it",
   "engines": {
     "node": ">=12"
   },
@@ -20,7 +13,7 @@
     "start": "next start",
     "test:e2e": "npm run cy:run --",
     "deploy": "vercel -S carbon-app",
-    "prettier": "prettier --config .prettierrc --write {.,components,lib,pages}/*.js {components,lib,pages}/**/*.js",
+    "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write",
     "lint": "next lint --dir .",
     "contrib:add": "all-contributors add",
     "contrib:build": "all-contributors generate",
@@ -74,8 +67,6 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
-    "husky": "^4.3.8",
-    "lint-staged": "^11.2.3",
     "now-release": "^0.0.2",
     "vercel": "^24.2.3",
     "wait-on": "^6.0.1"
@@ -88,19 +79,5 @@
     "lodash": "^4.17.2",
     "serialize-javascript": "^6.0.0",
     "sharp": "^0.30.4"
-  },
-  "lint-staged": {
-    "*.js": [
-      "npm run lint",
-      "prettier --config .prettierrc --write"
-    ],
-    ".all-contributorsrc": [
-      "npm run contrib:build"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }

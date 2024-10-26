@@ -1,7 +1,9 @@
-import React from 'react'
-import VisuallyHidden from '@reach/visually-hidden'
+/** @format */
 
-import { COLORS } from '../lib/constants'
+import React from 'react';
+import VisuallyHidden from '@reach/visually-hidden';
+
+import { COLORS } from '../lib/constants';
 
 const Button = ({
   id,
@@ -60,6 +62,6 @@ const Button = ({
       `}
     </style>
   </Component>
-)
+);
 
-export default Button
+export default Button;

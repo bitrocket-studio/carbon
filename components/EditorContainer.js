@@ -1,75 +1,77 @@
+/** @format */
+
 // Theirs
-import React from 'react'
-import Router from 'next/router'
+import React from 'react';
+import Router from 'next/router';
 
-import Editor from './Editor'
-import Toasts from './Toasts'
-import { useAuth } from './AuthContext'
+import Editor from './Editor';
+import Toasts from './Toasts';
+import { useAuth } from './AuthContext';
 
-import { THEMES } from '../lib/constants'
-import { updateRouteState } from '../lib/routing'
-import { getThemes, saveThemes, clearSettings, saveSettings } from '../lib/util'
+import { THEMES } from '../lib/constants';
+import { updateRouteState } from '../lib/routing';
+import { getThemes, saveThemes, clearSettings, saveSettings } from '../lib/util';
 
 function onReset() {
-  clearSettings()
-  updateRouteState(Router, {})
+  clearSettings();
+  updateRouteState(Router, {});
 
   if (window.navigator && navigator.serviceWorker) {
     navigator.serviceWorker.getRegistrations().then(registrations => {
       registrations.forEach(registration => {
-        registration.unregister()
-      })
-    })
+        registration.unregister();
+      });
+    });
   }
 }
 
 function toastsReducer(curr, action) {
   switch (action.type) {
     case 'ADD': {
-      return curr.concat(action.toast)
+      return curr.concat(action.toast);
     }
     case 'SET': {
-      return action.toasts
+      return action.toasts;
     }
   }
-  throw new Error('Unsupported action')
+  throw new Error('Unsupported action');
 }
 
 function EditorContainer(props) {
-  const [themes, updateThemes] = React.useState(THEMES)
-  const user = useAuth()
+  const [themes, updateThemes] = React.useState(THEMES);
+  const user = useAuth();
 
   React.useEffect(() => {
-    const storedThemes = getThemes(localStorage) || []
+    const storedThemes = getThemes(localStorage) || [];
     if (storedThemes) {
-      updateThemes(currentThemes => [...storedThemes, ...currentThemes])
+      updateThemes(currentThemes => [...storedThemes, ...currentThemes]);
     }
-  }, [])
+  }, []);
 
   React.useEffect(() => {
-    saveThemes(themes.filter(({ custom }) => custom))
-  }, [themes])
+    saveThemes(themes.filter(({ custom }) => custom));
+  }, [themes]);
 
   // XXX use context
-  const [snippet, setSnippet] = React.useState(props.snippet || null)
+  const [snippet, setSnippet] = React.useState(props.snippet || null);
   // TODO update this reducer to only take one action
-  const [toasts, setToasts] = React.useReducer(toastsReducer, [])
+  const [toasts, setToasts] = React.useReducer(toastsReducer, []);
 
-  const snippetId = snippet && snippet.id
+  const snippetId = snippet && snippet.id;
   React.useEffect(() => {
     if ('/' + (snippetId || '') === props.router.asPath) {
-      return
+      return;
     }
-    window.history.pushState(null, null, '/' + (snippetId || ''))
+    window.history.pushState(null, null, '/' + (snippetId || ''));
     // props.router.replace(props.router.asPath, '/' + (snippetId || ''), { shallow: true })
-  }, [snippetId, props.router])
+  }, [snippetId, props.router]);
 
   function onEditorUpdate(state) {
     if (user) {
-      return
+      return;
     }
-    updateRouteState(props.router, state)
-    saveSettings(state)
+    updateRouteState(props.router, state);
+    saveSettings(state);
   }
 
   return (
@@ -86,7 +88,7 @@ function EditorContainer(props) {
         onReset={onReset}
       />
     </>
-  )
+  );
 }
 
-export default EditorContainer
+export default EditorContainer;

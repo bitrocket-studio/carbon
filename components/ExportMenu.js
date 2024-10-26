@@ -1,34 +1,35 @@
-import React from 'react'
-import { useKeyboardListener, useAsyncCallback } from 'actionsack'
+/** @format */
 
-import { COLORS, EXPORT_SIZES } from '../lib/constants'
-import Button from './Button'
-import Input from './Input'
-import Popout, { managePopout } from './Popout'
+import React from 'react';
+import { useKeyboardListener, useAsyncCallback } from 'actionsack';
 
-import { Down as ArrowDown } from './svg/Arrows'
+import { COLORS, EXPORT_SIZES } from '../lib/constants';
+import Button from './Button';
+import Input from './Input';
+import Popout, { managePopout } from './Popout';
 
-const popoutStyle = { width: '256px', right: 0 }
+import { Down as ArrowDown } from './svg/Arrows';
+
+const popoutStyle = { width: '256px', right: 0 };
 
 function preventDefault(fn) {
   return e => {
-    e.preventDefault()
-    return fn(e)
-  }
+    e.preventDefault();
+    return fn(e);
+  };
 }
 
 function ExportMenu({ onChange, exportSize, isVisible, toggleVisibility, exportImage: exp }) {
-  const input = React.useRef()
+  const input = React.useRef();
 
-  const [exportImage, { loading }] = useAsyncCallback(exp)
+  const [exportImage, { loading }] = useAsyncCallback(exp);
 
-  const handleExportSizeChange = selectedSize => () => onChange('exportSize', selectedSize)
+  const handleExportSizeChange = selectedSize => () => onChange('exportSize', selectedSize);
 
-  const handleExport = format => () =>
-    exportImage(format, { filename: input.current && input.current.value })
+  const handleExport = format => () => exportImage(format, { filename: input.current && input.current.value });
 
-  useKeyboardListener('⌘-⇧-e', preventDefault(handleExport('blob')))
-  useKeyboardListener('⌘-⇧-s', preventDefault(handleExport('svg')))
+  useKeyboardListener('⌘-⇧-e', preventDefault(handleExport('blob')));
+  useKeyboardListener('⌘-⇧-s', preventDefault(handleExport('svg')));
 
   return (
     <div className="export-menu-container">
@@ -65,12 +66,7 @@ function ExportMenu({ onChange, exportSize, isVisible, toggleVisibility, exportI
           <ArrowDown color={COLORS.PURPLE} />
         </Button>
       </div>
-      <Popout
-        hidden={!isVisible}
-        borderColor={COLORS.PURPLE}
-        pointerRight="6px"
-        style={popoutStyle}
-      >
+      <Popout hidden={!isVisible} borderColor={COLORS.PURPLE} pointerRight="6px" style={popoutStyle}>
         <div className="export-row">
           <span className="filename">File name</span>
           <Input ref={input} title="filename" placeholder="carbon" color={COLORS.PURPLE} />
@@ -96,9 +92,7 @@ function ExportMenu({ onChange, exportSize, isVisible, toggleVisibility, exportI
           <Button
             center
             color={COLORS.PURPLE}
-            onClick={() =>
-              exportImage('blob', { filename: input.current && input.current.value, open: true })
-            }
+            onClick={() => exportImage('blob', { filename: input.current && input.current.value, open: true })}
           >
             Open
           </Button>
@@ -177,7 +171,7 @@ function ExportMenu({ onChange, exportSize, isVisible, toggleVisibility, exportI
         `}
       </style>
     </div>
-  )
+  );
 }
 
-export default managePopout(React.memo(ExportMenu))
+export default managePopout(React.memo(ExportMenu));
